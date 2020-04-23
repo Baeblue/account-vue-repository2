@@ -8,9 +8,9 @@
 
 <script>
 import Home from './components/Home'
-import List from "./components/List";
-import AddAccount from "./components/AddAccount";
-import MonthlyList from "./components/MonthlyList";
+import List from './components/List';
+import AddAccount from './components/AddAccount';
+import MonthlyList from './components/MonthlyList';
 
 import eventBus from './eventBus'
 import VueRouter from 'vue-router'
@@ -36,9 +36,28 @@ export default {
   },
   created() {
     this.$router.push('/');
+    this.initLocalStorage();
   },
   mounted() {
     eventBus.$on('addTotal', (value) => { this.total += value });
+    eventBus.$on('refreshLocalStorage', () => { this.refreshLocalStorage() });
+  },
+  methods: {
+    initLocalStorage() {
+      if(localStorage.getItem('total')) {
+        this.total = JSON.parse(localStorage.getItem('total'));
+        console.log('Bring Total');
+      } else {
+        this.total = 0;
+        localStorage.setItem('total', JSON.stringify(this.total));
+        console.log('New Total');
+      }
+    },
+
+    refreshLocalStorage() {
+      localStorage.setItem('total', JSON.stringify(this.total));
+      console.log('Refresh localStorage.');
+    }
   }
 }
 </script>
