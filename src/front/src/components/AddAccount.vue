@@ -53,7 +53,7 @@
           <input type="number" class="form-control" id="price" required v-model="account.price" name="price">
         </div>
 
-        <button v-on:click="addLine" class="btn btn-success">등록</button>
+        <button @click="addLine" class="btn btn-success">등록</button>
       </div>
 
       <div v-else>
@@ -89,7 +89,8 @@
 
       },
       formatDate() {
-        ApiSvc.post("/account", this.data)
+        const date = new Date();
+        ApiSvc.post("/account", date)
           .then(res => {
             this.account.date = res.data.date;
             const d = this.account.date;
@@ -111,14 +112,14 @@
           })
       },
       addLine() {
-        const data = {
+        const requestData = {
           category: this.account.category,
           content: this.account.content,
           method: this.account.method,
           price: this.account.price
         };
 
-        ApiSvc.post("/account", data)
+        ApiSvc.post("/account", requestData)
           .then(res => {
             this.account.id = res.data.id;
           })
@@ -128,7 +129,7 @@
 
         this.submitted = true;
 
-        this.formatDate();
+        // this.formatDate();
       },
       refreshInputForm() {
         this.price = null;

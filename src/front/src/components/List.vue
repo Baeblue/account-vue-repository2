@@ -26,7 +26,7 @@
 
         <tbody>
         <tr v-for="line in account" :key="line.id">
-          <td>{{ line.date }}</td>
+          <td>{{ getCustomizedDate(new Date(line.date)) }}</td>
           <td>{{ line.category }}</td>
           <td>{{ line.content }}</td>
           <td>{{ line.method }}</td>
@@ -68,11 +68,31 @@
             console.log(e);
           });
       },
+      getCustomizedDate(date) {
+        // 2020-04-22T15:00:00.000+0000
+        // const date = new Date(2020-04-22T15:00:00.000+0000)
+        // date.getMonth()_월, date.getDate()_일자
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+        let result = '';
+
+        if (month < 10) {
+          result += '0' + month;
+        }
+        if (day < 10) {
+          result += '/0' + day;
+        } else {
+          result += '/' + day;
+        }
+
+        return result;
+      }
     },
   };
 </script>
 
 <style lang="scss" scoped>
+
   .list {
     text-align: center;
   }

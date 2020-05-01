@@ -28,9 +28,6 @@
     name: 'app',
     router,
     components: {Home, List, AddAccount, MonthlyList},
-    created() {
-      this.$router.push('/');
-    },
   }
 </script>
 

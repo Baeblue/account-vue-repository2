@@ -32,8 +32,14 @@ public class AccountController {
 
     @PostMapping("/account")
     public Account addLine(@RequestBody Account account) {
-        Account _account = repository.save(new Account(
-                account.getCategory(), account.getContent(), account.getMethod(), account.getPrice()));
+        Account _account = repository.save(
+            new Account(
+                account.getCategory(),
+                account.getContent(),
+                account.getMethod(),
+                account.getPrice()
+            )
+        );
         return _account;
     }
 
@@ -52,7 +58,7 @@ public class AccountController {
 
         Optional<Account> accountData = repository.findById(id);
 
-        if(accountData.isPresent()) {
+        if (accountData.isPresent()) {
             Account _account = accountData.get();
             _account.setCategory(account.getCategory());
             _account.setContent(account.getContent());
