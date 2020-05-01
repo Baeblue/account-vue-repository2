@@ -20,16 +20,20 @@
 </script>
 
 <style lang="scss" scoped>
+
   .container-fluid {
     text-align: center;
-  }
 
-  .home {
-    color: #00ed7c;
-    margin: 20px;
-  }
+    .home {
+      color: #00ed7c;
+      margin: 20px;
+    }
 
-  .btn-primary {
-    margin-right: 10px;
+    nav {
+
+      .btn-primary {
+        margin-right: 10px;
+      }
+    }
   }
 </style>

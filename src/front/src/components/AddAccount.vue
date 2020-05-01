@@ -7,9 +7,6 @@
           <button class="btn">Go Home</button>
         </router-link>
       </div>
-      <div class="totalArea">
-        {{ total }}
-      </div>
       <br/>
       <div v-if="!submitted">
         <h3>지출을 입력하세요.</h3>
@@ -62,7 +59,7 @@
       <div v-else>
         <h4>등록되었습니다.</h4>
         <router-link to="/list">
-          <button class="btn btn-success" @on:click="addToTotal(account.price)">확인</button>
+          <button class="btn btn-success">확인</button>
         </router-link>
       </div>
     </div>
@@ -70,7 +67,6 @@
 </template>
 
 <script>
-  import EventBus from "@js/EventBus.js";
   import ApiSvc from "@js/ApiSvc.js";
 
   export default {
@@ -88,23 +84,14 @@
         submitted: false
       };
     },
-    props: ['total'],
     methods: {
       selectCategory() {
 
       },
-      addToTotal(price) {
-        if (this.price > 0) {
-          EventBus.$emit('addTotal', price);
-          EventBus.$emit('refreshLocalStorage');
-        }
-        this.refreshInputForm();
-      },
       formatDate() {
-        ApiSvc
-          .post("/account", data)
-          .then(response => {
-            this.account.date = response.data.date;
+        ApiSvc.post("/account", this.data)
+          .then(res => {
+            this.account.date = res.data.date;
             const d = this.account.date;
             const year = d.getFullYear();
             let month = d.getMonth() + 1;
@@ -131,11 +118,9 @@
           price: this.account.price
         };
 
-        ApiSvc
-          .post("/account", data)
-          .then(response => {
-            this.account.id = response.data.id;
-            console.log(response.data);
+        ApiSvc.post("/account", data)
+          .then(res => {
+            this.account.id = res.data.id;
           })
           .catch(e => {
             console.log(e);
@@ -153,6 +138,7 @@
 </script>
 
 <style lang="scss" scoped>
+
   .addForm {
     max-width: 300px;
     margin: auto;

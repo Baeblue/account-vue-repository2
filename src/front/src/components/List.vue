@@ -34,7 +34,7 @@
         </tr>
         </tbody>
       </table>
-      <router-view @refreshData="refreshList"></router-view>
+      <router-view @refreshData="getAccounts"></router-view>
     </div>
   </div>
 </template>
@@ -48,28 +48,27 @@
       return {
         account: [],
         line: null,
-        total: this.price
+        total: 0,
       }
     },
+    mounted() {
+      this.getAccounts();
+    },
     methods: {
-      retrieveAccounts() {
-        ApiSvc
-          .get("/list")
-          .then(response => {
-            this.account = response.data;
-            console.log(response.data);
+      getAccounts() {
+        ApiSvc.get("/list")
+          .then(res => {
+            this.account = res.data;
+            // initialize total value.
+            this.total = res.data
+              .map(obj => obj.price)
+              .reduce((price1, price2) => price1 + price2, 0);
           })
           .catch(e => {
             console.log(e);
           });
       },
-      refreshList() {
-        this.retrieveAccounts();
-      }
     },
-    mounted() {
-      this.retrieveAccounts();
-    }
   };
 </script>
 

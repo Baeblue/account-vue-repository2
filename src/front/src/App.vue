@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="container-fluid">
     <transition name="component-fade" mode="out-in">
-      <router-view :total="total"></router-view>
+      <router-view></router-view>
     </transition>
   </div>
 </template>
@@ -12,7 +12,6 @@
   import AddAccount from './components/AddAccount';
   import MonthlyList from './components/MonthlyList';
 
-  import EventBus from '@js/EventBus.js';
   import VueRouter from 'vue-router';
 
   const router = new VueRouter({
@@ -29,44 +28,14 @@
     name: 'app',
     router,
     components: {Home, List, AddAccount, MonthlyList},
-    data() {
-      return {
-        total: 0
-      }
-    },
     created() {
       this.$router.push('/');
-      this.initLocalStorage();
     },
-    mounted() {
-      EventBus.$on('addTotal', (value) => {
-        this.total += value
-      });
-      EventBus.$on('refreshLocalStorage', () => {
-        this.refreshLocalStorage()
-      });
-    },
-    methods: {
-      initLocalStorage() {
-        if (localStorage.getItem('total')) {
-          this.total = JSON.parse(localStorage.getItem('total'));
-          console.log('Bring Total');
-        } else {
-          this.total = 0;
-          localStorage.setItem('total', JSON.stringify(this.total));
-          console.log('New Total');
-        }
-      },
-
-      refreshLocalStorage() {
-        localStorage.setItem('total', JSON.stringify(this.total));
-        console.log('Refresh localStorage.');
-      }
-    }
   }
 </script>
 
 <style lang="scss">
+
   .component-fade-enter-active, .component-fade-leave-active {
     transition: opacity .5s ease;
   }
