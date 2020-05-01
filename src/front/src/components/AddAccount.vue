@@ -16,22 +16,21 @@
         <!--        </div>-->
         <div>
           <b-dropdown
-            id="dropdown-1" text="항목 선택" class="m-md-2" required
-            @click='selectCategory'
-            v-model="account.category"
+            id="dropdown-1" class="m-md-2" required
+            :text="selectedCategory1"
           >
-            <b-dropdown-item>식비</b-dropdown-item>
-            <b-dropdown-item>교통비</b-dropdown-item>
-            <b-dropdown-item>생필품비</b-dropdown-item>
-            <b-dropdown-item>자기계발비</b-dropdown-item>
-            <b-dropdown-item>경조사비</b-dropdown-item>
-            <b-dropdown-item>기타</b-dropdown-item>
+            <b-dropdown-item @click="selectCategory1('식비')">식비</b-dropdown-item>
+            <b-dropdown-item @click="selectCategory1('교통비')">교통비</b-dropdown-item>
+            <b-dropdown-item @click="selectCategory1('생필품비')">생필품비</b-dropdown-item>
+            <b-dropdown-item @click="selectCategory1('자기계발비')">자기계발비</b-dropdown-item>
+            <b-dropdown-item @click="selectCategory1('경조사비')">경조사비</b-dropdown-item>
+            <b-dropdown-item @click="selectCategory1('기타')">기타</b-dropdown-item>
           </b-dropdown>
         </div>
 
         <div class="form-group">
           <label for="content">내용</label>
-          <input type="text" class="form-control" id="content" required v-model="account.content" name="content">
+          <input type="text" class="form-control" id="content" v-model="account.content" name="content">
         </div>
 
         <!--        <div class="form-group">-->
@@ -39,18 +38,22 @@
         <!--          <input type="text" class="form-control" id="method" required v-model="account.method" name="method">-->
         <!--        </div>-->
         <div>
-          <b-dropdown id="dropdown-1" text="수단 선택" class="m-2" required v-model="account.method">
-            <b-dropdown-item>현금</b-dropdown-item>
-            <b-dropdown-item>체크카드</b-dropdown-item>
-            <b-dropdown-item>신용카드</b-dropdown-item>
-            <b-dropdown-item>상품권</b-dropdown-item>
-            <b-dropdown-item>기타</b-dropdown-item>
+          <b-dropdown
+            id="dropdown-1" class="m-2" required
+            :text="selectedCategory2"
+          >
+            <b-dropdown-item
+              v-for="category in secondCategoryList"
+              @click="selectCategory2(category)"
+            >
+              {{ category }}
+            </b-dropdown-item>
           </b-dropdown>
         </div>
 
         <div class="form-group">
           <label for="price">금액</label>
-          <input type="number" class="form-control" id="price" required v-model="account.price" name="price">
+          <input type="number" class="form-control" id="price" v-model="account.price" name="price">
         </div>
 
         <button @click="addLine" class="btn btn-success">등록</button>
@@ -81,35 +84,19 @@
           method: "",
           price: 0,
         },
-        submitted: false
+        submitted: false,
+        selectedCategory1: '항목 선택',
+
+        selectedCategory2: '지출 선택',
+        secondCategoryList: ['현금', '체크카드', '신용카드', '상품권', '기타'],
       };
     },
     methods: {
-      selectCategory() {
-
+      selectCategory1(selectedItem) {
+        this.selectedCategory1 = selectedItem;
       },
-      formatDate() {
-        const date = new Date();
-        ApiSvc.post("/account", date)
-          .then(res => {
-            this.account.date = res.data.date;
-            const d = this.account.date;
-            const year = d.getFullYear();
-            let month = d.getMonth() + 1;
-            let day = d.getDate();
-
-            if (month.length < 2) {
-              month = '0' + month;
-            }
-            if (day.length < 2) {
-              day = '0' + day;
-            }
-
-            return [year, month, day].join('-');
-          })
-          .catch(e => {
-            console.log(e);
-          })
+      selectCategory2(selectedItem) {
+        this.selectedCategory2 = selectedItem;
       },
       addLine() {
         const requestData = {
@@ -128,12 +115,7 @@
           });
 
         this.submitted = true;
-
-        // this.formatDate();
       },
-      refreshInputForm() {
-        this.price = null;
-      }
     }
   };
 </script>
