@@ -44,11 +44,11 @@ import eventBus from "../eventBus";
 
 export default {
   name: "List",
-  props: [ 'total' ],
   data() {
     return {
       account: [],
-      line: null
+      line: null,
+      total: this.price
     }
   },
   methods: {
@@ -83,6 +83,6 @@ export default {
 }
 
 table {
-  width: 600px;
+  width: 1000px;
 }
 </style>
