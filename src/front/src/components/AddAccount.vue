@@ -10,10 +10,7 @@
       <br/>
       <div v-if="!submitted">
         <h3>지출을 입력하세요.</h3>
-        <!--        <div class="form-group">-->
-        <!--          <label for="category">항목</label>     &lt;!&ndash; dropdown으로 &ndash;&gt;-->
-        <!--          <input type="text" class="form-control" id="category" required v-model="account.category" name="category">-->
-        <!--        </div>-->
+
         <div>
           <b-dropdown
             id="dropdown-1" class="m-md-2" required
@@ -33,10 +30,6 @@
           <input type="text" class="form-control" id="content" v-model="account.content" name="content">
         </div>
 
-        <!--        <div class="form-group">-->
-        <!--          <label for="method">수단</label>     &lt;!&ndash; dropdown으로 &ndash;&gt;-->
-        <!--          <input type="text" class="form-control" id="method" required v-model="account.method" name="method">-->
-        <!--        </div>-->
         <div>
           <b-dropdown
             id="dropdown-1" class="m-2" required
