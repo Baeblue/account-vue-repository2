@@ -15,23 +15,23 @@
 
       <table>
         <thead>
-          <tr>
-            <th class="date">날짜</th>
-            <th class="category">항목</th>
-            <th class="content">내용</th>
-            <th class="method">수단</th>
-            <th class="price">금액</th>
-          </tr>
+        <tr>
+          <th class="date">날짜</th>
+          <th class="category">항목</th>
+          <th class="content">내용</th>
+          <th class="method">수단</th>
+          <th class="price">금액</th>
+        </tr>
         </thead>
 
         <tbody>
-          <tr v-for="line in account" :key="line.id">
-            <td>{{ line.date }}</td>
-            <td>{{ line.category }}</td>
-            <td>{{ line.content }}</td>
-            <td>{{ line.method }}</td>
-            <td>{{ line.price }}</td>
-          </tr>
+        <tr v-for="line in account" :key="line.id">
+          <td>{{ line.date }}</td>
+          <td>{{ line.category }}</td>
+          <td>{{ line.content }}</td>
+          <td>{{ line.method }}</td>
+          <td>{{ line.price }}</td>
+        </tr>
         </tbody>
       </table>
       <router-view @refreshData="refreshList"></router-view>
@@ -40,49 +40,49 @@
 </template>
 
 <script>
-import eventBus from "../eventBus";
+  import ApiSvc from "@js/ApiSvc.js";
 
-export default {
-  name: "List",
-  data() {
-    return {
-      account: [],
-      line: null,
-      total: this.price
-    }
-  },
-  methods: {
-    retrieveAccounts() {
-      eventBus
-        .get("/list")
-        .then(response => {
-          this.account = response.data;
-          console.log(response.data);
-        })
-        .catch(e => {
-          console.log(e);
-        });
+  export default {
+    name: "List",
+    data() {
+      return {
+        account: [],
+        line: null,
+        total: this.price
+      }
     },
-    refreshList() {
+    methods: {
+      retrieveAccounts() {
+        ApiSvc
+          .get("/list")
+          .then(response => {
+            this.account = response.data;
+            console.log(response.data);
+          })
+          .catch(e => {
+            console.log(e);
+          });
+      },
+      refreshList() {
+        this.retrieveAccounts();
+      }
+    },
+    mounted() {
       this.retrieveAccounts();
     }
-  },
-  mounted() {
-    this.retrieveAccounts();
-  }
-};
+  };
 </script>
 
-<style lang="scss">
-.list {
-  text-align: center;
-}
+<style lang="scss" scoped>
+  .list {
+    text-align: center;
+  }
 
-.totalArea {
-  font-size: 40px;
-}
+  .totalArea {
+    font-size: 40px;
+  }
 
-table {
-  width: 1000px;
-}
+  table {
+    width: 1000px;
+  }
 </style>

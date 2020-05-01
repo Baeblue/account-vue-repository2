@@ -14,11 +14,11 @@
 </template>
 
 <script>
-    export default {
-        name: "MonthlyList"
-    }
+  export default {
+    name: "MonthlyList"
+  }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 </style>

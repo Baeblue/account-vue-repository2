@@ -14,22 +14,22 @@
 </template>
 
 <script>
-export default {
-  name: "Home"
-}
+  export default {
+    name: "Home"
+  }
 </script>
 
-<style lang="scss">
-.container-fluid {
-  text-align: center;
-}
+<style lang="scss" scoped>
+  .container-fluid {
+    text-align: center;
+  }
 
-.home {
-  color: #00ed7c;
-  margin: 20px;
-}
+  .home {
+    color: #00ed7c;
+    margin: 20px;
+  }
 
-.btn-primary {
-  margin-right: 10px;
-}
+  .btn-primary {
+    margin-right: 10px;
+  }
 </style>
