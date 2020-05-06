@@ -1,13 +1,21 @@
 <template>
   <div id="app" class="container-fluid">
-    <transition name="component-fade" mode="out-in">
-      <router-view></router-view>
-    </transition>
+    <transition-group name="component-fade" mode="out-in">
+      <div class="home" key="0">
+        <h2>안녕 가계부!</h2>
+      </div>
+      <nav key="1">
+        <router-link class="btn btn-primary" to="/addAccount">지출 입력하기</router-link>
+        <router-link class="btn btn-primary" to="/list">이번 달 목록 보기</router-link>
+        <router-link class="btn btn-primary" to="/monthlyList">월별 지출액 보기</router-link>
+      </nav>
+      <br key="2"/>   <!-- App.vue를 홈처럼 쓰는 거 찾아서 하기. -->
+      <router-view key="3"/>
+    </transition-group>
   </div>
 </template>
 
 <script>
-  import Home from './components/Home'
   import List from './components/List';
   import AddAccount from './components/AddAccount';
   import MonthlyList from './components/MonthlyList';
@@ -17,7 +25,6 @@
   const router = new VueRouter({
     mode: 'history',
     routes: [
-      {path: '/', component: Home},
       {path: '/list', component: List},
       {path: '/addAccount', component: AddAccount},
       {path: '/monthlyList', component: MonthlyList}
@@ -27,7 +34,7 @@
   export default {
     name: 'app',
     router,
-    components: {Home, List, AddAccount, MonthlyList},
+    components: {List, AddAccount, MonthlyList},
   }
 </script>
 
@@ -39,5 +46,21 @@
 
   .component-fade-enter, .component-fade-leave-to {
     opacity: 0;
+  }
+
+  .container-fluid {
+    text-align: center;
+
+    .home {
+      color: #00ed7c;
+      margin: 20px;
+    }
+
+    nav {
+
+      .btn-primary {
+        margin-right: 10px;
+      }
+    }
   }
 </style>

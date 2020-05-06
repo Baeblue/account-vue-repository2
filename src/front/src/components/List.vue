@@ -2,12 +2,6 @@
   <div class="container-fluid">
     <div class="list">
       <br/>
-      <div class="btnArea">
-        <router-link to="/">
-          <button class="btn">Go Home</button>
-        </router-link>
-      </div>
-      <br/>
       <h3>이번 달 지출 목록</h3>
       <div class="totalArea">
         {{ total }}

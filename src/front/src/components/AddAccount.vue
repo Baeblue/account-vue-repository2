@@ -2,12 +2,6 @@
   <div class="container-fluid">
     <div class="addForm">
       <br/>
-      <div class="btnArea">
-        <router-link to="/">
-          <button class="btn">Go Home</button>
-        </router-link>
-      </div>
-      <br/>
       <div v-if="!submitted">
         <h3>지출을 입력하세요.</h3>
 
