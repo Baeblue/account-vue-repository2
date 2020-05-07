@@ -15,20 +15,16 @@
           <th class="content">내용</th>
           <th class="method">수단</th>
           <th class="price">금액</th>
-          <th class="edit">편집</th>
         </tr>
         </thead>
 
         <tbody>
-        <tr v-for="row in account" :key="row.id">
-          <td>{{ getCustomizedDate(new Date(row.date)) }}</td>
-          <td>{{ row.category }}</td>
-          <td>{{ row.content }}</td>
-          <td>{{ row.method }}</td>
-          <td>{{ row.price }}</td>
-          <td>
-            <button></button>
-          </td>
+        <tr v-for="line in account" :key="line.id">
+          <td>{{ getCustomizedDate(new Date(line.date)) }}</td>
+          <td>{{ line.category }}</td>
+          <td>{{ line.content }}</td>
+          <td>{{ line.method }}</td>
+          <td>{{ line.price }}</td>
         </tr>
         </tbody>
       </table>
@@ -45,7 +41,7 @@
     data() {
       return {
         account: [],
-        row: null,
+        line: null,
         total: 0,
       }
     },

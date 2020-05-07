@@ -8,39 +8,39 @@
         <div>
           <b-dropdown
             id="dropdown-1" class="m-md-2" required
-            :text="selectedCategory"
+            :text="selectedCategory1"
           >
-            <b-dropdown-item @click="selectCategory('식비')">식비</b-dropdown-item>
-            <b-dropdown-item @click="selectCategory('교통비')">교통비</b-dropdown-item>
-            <b-dropdown-item @click="selectCategory('생필품비')">생필품비</b-dropdown-item>
-            <b-dropdown-item @click="selectCategory('자기계발비')">자기계발비</b-dropdown-item>
-            <b-dropdown-item @click="selectCategory('경조사비')">경조사비</b-dropdown-item>
-            <b-dropdown-item @click="selectCategory('기타')">기타</b-dropdown-item>
+            <b-dropdown-item @click="selectCategory1('식비')">식비</b-dropdown-item>
+            <b-dropdown-item @click="selectCategory1('교통비')">교통비</b-dropdown-item>
+            <b-dropdown-item @click="selectCategory1('생필품비')">생필품비</b-dropdown-item>
+            <b-dropdown-item @click="selectCategory1('자기계발비')">자기계발비</b-dropdown-item>
+            <b-dropdown-item @click="selectCategory1('경조사비')">경조사비</b-dropdown-item>
+            <b-dropdown-item @click="selectCategory1('기타')">기타</b-dropdown-item>
           </b-dropdown>
         </div>
 
         <div class="form-group">
           <label for="content">내용</label>
-          <input type="text" class="form-control" placeholder="내용 입력" id="content" v-model="account.content" name="content">
+          <input type="text" class="form-control" id="content" v-model="account.content" name="content">
         </div>
 
         <div>
           <b-dropdown
-            id="dropdown-2" class="m-2" required
-            :text="selectedMethod"
+            id="dropdown-1" class="m-2" required
+            :text="selectedCategory2"
           >
             <b-dropdown-item
-              v-for="method in MethodList"
-              @click="selectMethod(method)"
+              v-for="category in secondCategoryList"
+              @click="selectCategory2(category)"
             >
-              {{ method }}
+              {{ category }}
             </b-dropdown-item>
           </b-dropdown>
         </div>
 
         <div class="form-group">
           <label for="price">금액</label>
-          <input type="text" class="form-control" placeholder="금액 입력" id="price" v-model="account.price" name="price">
+          <input type="number" class="form-control" id="price" v-model="account.price" name="price">
         </div>
 
         <button @click="addLine" class="btn btn-success">등록</button>
@@ -72,20 +72,18 @@
           price: 0,
         },
         submitted: false,
-        selectedCategory: '항목 선택',
+        selectedCategory1: '항목 선택',
 
-        selectedMethod: '수단 선택',
-        MethodList: ['현금', '체크카드', '신용카드', '상품권', '기타'],
+        selectedCategory2: '지출 선택',
+        secondCategoryList: ['현금', '체크카드', '신용카드', '상품권', '기타'],
       };
     },
     methods: {
-      selectCategory(selectedItem) {
-        this.selectedCategory = selectedItem;
-        this.account.category = this.selectedCategory;
+      selectCategory1(selectedItem) {
+        this.selectedCategory1 = selectedItem;
       },
-      selectMethod(selectedItem) {
-        this.selectedMethod = selectedItem;
-        this.account.method = this.selectedMethod;
+      selectCategory2(selectedItem) {
+        this.selectedCategory2 = selectedItem;
       },
       addLine() {
         const requestData = {
