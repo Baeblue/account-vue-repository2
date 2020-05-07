@@ -9,8 +9,10 @@
         <router-link class="btn btn-primary" to="/list">이번 달 목록 보기</router-link>
         <router-link class="btn btn-primary" to="/monthlyList">월별 지출액 보기</router-link>
       </nav>
-      <br key="2"/>   <!-- App.vue를 홈처럼 쓰는 거 찾아서 하기. -->
+      <br key="2"/>
       <router-view key="3"/>
+
+
     </transition-group>
   </div>
 </template>
@@ -38,7 +40,7 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
   .component-fade-enter-active, .component-fade-leave-active {
     transition: opacity .5s ease;
