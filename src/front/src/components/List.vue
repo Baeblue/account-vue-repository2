@@ -21,7 +21,7 @@
           </thead>
 
           <tbody>
-          <tr v-for="row in account" :key="row.id">
+          <tr v-for="row in account.reverse()" :key="row.id">
             <td>{{ getCustomizedDate(new Date(row.date)) }}</td>
             <td>{{ row.category }}</td>
             <td>{{ row.content }}</td>
@@ -55,6 +55,11 @@
         total: 0,
       }
     },
+    // computed: {
+    //   account: function() {
+    //     return _.orderBy(this.account, 'date', 'desc');
+    //   }
+    // },
     mounted() {
       this.getAccounts();
     },
@@ -93,7 +98,7 @@
       },
       sendRow(id) {
         console.log("여기까지 와?");
-        EventBus.$emit("use-eventBus", id);
+        EventBus.$emit("use-eventBus", this.account);
         console.log("emit 후?");
       },
       // updateRow(id) {

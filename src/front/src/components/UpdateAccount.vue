@@ -70,7 +70,7 @@
           category: "",
           content: "",
           method: "",
-          price: 0,    // this.으로?
+          price: 0,
 
         },
         submitted: false,
@@ -82,8 +82,8 @@
       };
     },
     created() {
-      EventBus.$on("use-eventBus", receiveRow => {
-        this.account = receiveRow;
+      EventBus.$on("use-eventBus", account=> {
+        this.account = account;
         console.log("여기까지 마무리");
       });
     },
