@@ -7,7 +7,7 @@
       <nav key="1">
         <router-link class="btn btn-primary" to="/addAccount">지출 입력하기</router-link>
         <router-link class="btn btn-primary" to="/list">이번 달 목록 보기</router-link>
-        <router-link class="btn btn-primary" to="/monthlyList">월별 지출액 보기</router-link>
+        <router-link class="btn btn-primary" to="/searchList">월별 지출액 보기</router-link>
       </nav>
       <br key="2"/>
       <router-view key="3"/>
@@ -22,6 +22,7 @@
   import AddAccount from './components/AddAccount';
   import MonthlyList from './components/MonthlyList';
   import UpdateAccount from "./components/UpdateAccount";
+  import SearchList from "./components/SearchList";
 
   import VueRouter from 'vue-router';
 
@@ -31,14 +32,15 @@
       {path: '/list', component: List},
       {path: '/addAccount', component: AddAccount},
       {path: '/monthlyList', component: MonthlyList},
-      {path: '/updateAccount', component: UpdateAccount}
+      {path: '/updateAccount', component: UpdateAccount},
+      {path: '/searchList', component: SearchList}
     ]
   });
 
   export default {
     name: 'app',
     router,
-    components: {List, AddAccount, MonthlyList, UpdateAccount},
+    components: {List, AddAccount, MonthlyList, UpdateAccount, SearchList},
   }
 </script>
 
