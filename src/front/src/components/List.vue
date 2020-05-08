@@ -1,44 +1,50 @@
 <template>
   <div class="container-fluid">
     <div class="list">
-      <br/>
-      <h3>이번 달 지출 목록</h3>
-      <div class="totalArea">
-        {{ total }}
-      </div>
 
-      <table>
-        <thead>
-        <tr>
-          <th class="date">날짜</th>
-          <th class="category">항목</th>
-          <th class="content">내용</th>
-          <th class="method">수단</th>
-          <th class="price">금액</th>
-          <th class="edit">편집</th>
-        </tr>
-        </thead>
+        <br/>
+        <h3>이번 달 지출 목록</h3>
+        <div class="totalArea">
+          {{ total }}
+        </div>
+        <br/>
+        <table>
+          <thead>
+          <tr>
+            <th class="date">날짜</th>
+            <th class="category">항목</th>
+            <th class="content">내용</th>
+            <th class="method">수단</th>
+            <th class="price">금액</th>
+            <th class="edit">편집</th>
+          </tr>
+          </thead>
 
-        <tbody>
-        <tr v-for="row in account" :key="row.id">
-          <td>{{ getCustomizedDate(new Date(row.date)) }}</td>
-          <td>{{ row.category }}</td>
-          <td>{{ row.content }}</td>
-          <td>{{ row.method }}</td>
-          <td>{{ row.price }}</td>
-          <td>
-            <button></button>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-      <router-view @refreshData="getAccounts"></router-view>
+          <tbody>
+          <tr v-for="row in account" :key="row.id">
+            <td>{{ getCustomizedDate(new Date(row.date)) }}</td>
+            <td>{{ row.category }}</td>
+            <td>{{ row.content }}</td>
+            <td>{{ row.method }}</td>
+            <td>{{ row.price }}</td>
+            <td>
+              <router-link to="/updateAccount">
+                <button @click="sendRow(row.id)" class="btn btn-primary">수정</button>
+              </router-link>
+              <button @click="deleteRow(row.id)" class="btn btn-danger">삭제</button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <router-view @refreshData="getAccounts"></router-view>
+
     </div>
   </div>
 </template>
 
 <script>
   import ApiSvc from "@js/ApiSvc.js";
+  import EventBus from "@js/EventBus.js";
 
   export default {
     name: "List",
@@ -84,6 +90,41 @@
         }
 
         return result;
+      },
+      sendRow(id) {
+        console.log("여기까지 와?");
+        EventBus.$emit("use-eventBus", id);
+        console.log("emit 후?");
+      },
+      // updateRow(id) {
+      //   const requestData = {
+      //     category: this.account.category,
+      //     content: this.account.content,
+      //     method: this.account.method,
+      //     price: this.account.price
+      //   };
+      //
+      //   ApiSvc.put("/account/" + id, requestData)
+      //     .then(res => {
+      //       this.account.id = res.data.id;
+      //       console.log(res.data);
+      //     })
+      //     .catch(e => {
+      //       console.log(e)
+      //     });
+      //   this.submitted = true;
+      // },
+      deleteRow(id) {
+        ApiSvc.delete("/account/" + id)
+          .then(res => {
+            //this.account.splice(id, 1)
+            console.log(id);
+            console.log(res.data);
+            this.getAccounts();
+          })
+          .catch(e => {
+            console.log(e);
+          });
       }
     },
   };
@@ -100,6 +141,8 @@
   }
 
   table {
+    margin: auto;
+    font-size: 20px;
     width: 1000px;
   }
 </style>

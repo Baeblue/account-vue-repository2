@@ -44,7 +44,7 @@ public class AccountController {
     }
 
     @DeleteMapping("/account/{id}")
-    public ResponseEntity<String> deleteLine(@PathVariable Integer id) {
+    public ResponseEntity<String> deleteLine(@PathVariable("id") Integer id) {
         System.out.println("Delete the Line with ID = " + id + "...");
 
         repository.deleteById(id);

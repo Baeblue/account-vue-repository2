@@ -1,21 +1,21 @@
 <template>
   <div class="container-fluid">
-    <div class="addForm">
+    <div class="update">
       <br/>
       <div v-if="!submitted">
-        <h3>지출을 입력하세요.</h3>
+        <h3>수정사항을 입력하세요.</h3>
 
         <div>
           <b-dropdown
-            id="dropdown-1" class="m-md-2" required
+            id="dropdown-1" class="m-2" required
             :text="selectedCategory"
           >
-            <b-dropdown-item @click="selectCategory('식비')">식비</b-dropdown-item>
-            <b-dropdown-item @click="selectCategory('교통비')">교통비</b-dropdown-item>
-            <b-dropdown-item @click="selectCategory('생필품비')">생필품비</b-dropdown-item>
-            <b-dropdown-item @click="selectCategory('자기계발비')">자기계발비</b-dropdown-item>
-            <b-dropdown-item @click="selectCategory('경조사비')">경조사비</b-dropdown-item>
-            <b-dropdown-item @click="selectCategory('기타')">기타</b-dropdown-item>
+            <b-dropdown-item
+              v-for="category in CategoryList" v-bind:key="category.id"
+              @click="selectCategory(category)"
+            >
+              {{ category }}
+            </b-dropdown-item>
           </b-dropdown>
         </div>
 
@@ -43,11 +43,11 @@
           <input type="text" class="form-control" placeholder="금액 입력" id="price" v-model="account.price" name="price">
         </div>
 
-        <button @click="addRow" class="btn btn-success">등록</button>
+        <button @click="updateRow(account.id)" class="btn btn-success">등록</button>
       </div>
 
       <div v-else>
-        <h4>등록되었습니다.</h4>
+        <h4>수정되었습니다.</h4>
         <router-link to="/list">
           <button class="btn btn-success">확인</button>
         </router-link>
@@ -58,31 +58,34 @@
 
 <script>
   import ApiSvc from "@js/ApiSvc.js";
-  import EventBus from "@js/EventBus.js";
+  import EventBus from "@js/EventBus";
 
   export default {
-    name: "AddAccount",
+    name: "UpdateAccount",
+    //props: ["account"],
     data() {
       return {
         account: {
-          id: 0,
-          date: "",
+          id: this.account.id,
+          date: this.account.date,
           category: "",
           content: "",
           method: "",
-          price: 0,
+          price: 0,    // this.으로?
+
         },
         submitted: false,
         selectedCategory: '항목 선택',
+        CategoryList: ['식비', '교통비', '생필품비', '자기계발비', '경조사비', '기타'],
 
         selectedMethod: '수단 선택',
-        MethodList: ['현금', '체크카드', '신용카드', '상품권', '기타'],
+        MethodList: ['현금', '체크카드', '신용카드', '상품권', '기타']
       };
     },
     created() {
       EventBus.$on("use-eventBus", receiveRow => {
         this.account = receiveRow;
-        console.log(this.account);
+        console.log("여기까지 마무리");
       });
     },
     methods: {
@@ -94,7 +97,7 @@
         this.selectedMethod = selectedItem;
         this.account.method = this.selectedMethod;
       },
-      addRow() {
+      updateRow(id) {
         const requestData = {
           category: this.account.category,
           content: this.account.content,
@@ -102,14 +105,14 @@
           price: this.account.price
         };
 
-        ApiSvc.post("/account", requestData)
+        ApiSvc.put("/account/" + id, requestData)
           .then(res => {
-            this.account.id = res.data.id;
+            this.account = res.data;
+            console.log("Success! You edited the account");
           })
           .catch(e => {
-            console.log(e);
+            console.log(e)
           });
-
         this.submitted = true;
       },
     }
@@ -118,7 +121,7 @@
 
 <style lang="scss" scoped>
 
-  .addForm {
+  .update {
     max-width: 300px;
     margin: auto;
   }

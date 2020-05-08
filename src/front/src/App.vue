@@ -21,6 +21,7 @@
   import List from './components/List';
   import AddAccount from './components/AddAccount';
   import MonthlyList from './components/MonthlyList';
+  import UpdateAccount from "./components/UpdateAccount";
 
   import VueRouter from 'vue-router';
 
@@ -29,14 +30,15 @@
     routes: [
       {path: '/list', component: List},
       {path: '/addAccount', component: AddAccount},
-      {path: '/monthlyList', component: MonthlyList}
+      {path: '/monthlyList', component: MonthlyList},
+      {path: '/updateAccount', component: UpdateAccount}
     ]
   });
 
   export default {
     name: 'app',
     router,
-    components: {List, AddAccount, MonthlyList},
+    components: {List, AddAccount, MonthlyList, UpdateAccount},
   }
 </script>
 
