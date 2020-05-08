@@ -62,12 +62,11 @@
 
   export default {
     name: "UpdateAccount",
-    //props: ["account"],
     data() {
       return {
         account: {
-          id: this.account.id,
-          date: this.account.date,
+          id: 0,
+          date: "",
           category: "",
           content: "",
           method: "",
