@@ -30,7 +30,7 @@
       {path: '/list', component: List},
       {path: '/addAccount', component: AddAccount},
       {path: '/monthlyList', component: MonthlyList},
-      {path: '/updateAccount', component: UpdateAccount},
+      {path: '/updateAccount/:id', component: UpdateAccount, props: true},
       {path: '/searchList', component: SearchList}
     ]
   });

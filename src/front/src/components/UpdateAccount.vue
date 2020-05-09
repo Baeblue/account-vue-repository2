@@ -62,6 +62,9 @@
 
   export default {
     name: "UpdateAccount",
+    props: {
+      id: 0,
+    },
     data() {
       return {
         account: {
@@ -71,7 +74,6 @@
           content: "",
           method: "",
           price: 0,
-
         },
         submitted: false,
         selectedCategory: '항목 선택',
@@ -82,12 +84,18 @@
       };
     },
     created() {
-      EventBus.$on("use-eventBus", account=> {
-        this.account = account;
-        console.log("여기까지 마무리");
-      });
+      this.getAccount(this.id);
     },
     methods: {
+      getAccount(id) {
+        ApiSvc.get(`/account/${id}`)
+          .then(res => {
+            this.account = res.data;
+            this.selectedCategory = this.account.category;
+            this.selectedMethod = this.account.method;
+          })
+          .catch(e => console.log(e));
+      },
       selectCategory(selectedItem) {
         this.selectedCategory = selectedItem;
         this.account.category = this.selectedCategory;

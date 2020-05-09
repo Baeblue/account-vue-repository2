@@ -21,7 +21,8 @@
 
         <div class="form-group">
           <label for="content">내용</label>
-          <input type="text" class="form-control" placeholder="내용 입력" id="content" v-model="account.content" name="content">
+          <input type="text" class="form-control" placeholder="내용 입력" id="content" v-model="account.content"
+                 name="content">
         </div>
 
         <div>
@@ -70,7 +71,7 @@
           category: "",
           content: "",
           method: "",
-          price: 0,
+          price: null,
         },
         submitted: false,
         selectedCategory: '항목 선택',

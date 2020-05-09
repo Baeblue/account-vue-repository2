@@ -7,10 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.text.DateFormat;
+import java.util.*;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -24,8 +22,14 @@ public class AccountController {
     public List<Account> getList() {
         System.out.println("Get a List...");
 
-        List<Account> list = new ArrayList<>();
-        repository.findAll().forEach(list::add);
+        List<Account> list = repository.findAll();
+
+        list.sort((a1, a2) -> a2.getDate().compareTo(a1.getDate()));
+
+        // 현재 /년/월/에 충족되는 account 만 filter 해서 프론트에 전달
+        TimeZone tz = TimeZone.getTimeZone("Asia/Seoul");
+        Calendar cal = Calendar.getInstance(tz);
+        System.out.println((cal.get(Calendar.YEAR) + "년" + (cal.get(Calendar.MONTH)+1) + "월" + cal.get(Calendar.DATE) + "일"));
 
         return list;
     }
@@ -50,6 +54,11 @@ public class AccountController {
         repository.deleteById(id);
 
         return new ResponseEntity<>("The Line has been deleted!", HttpStatus.OK);
+    }
+
+    @GetMapping("/account/{id}")
+    public Optional<Account> getOne(@PathVariable Integer id) {
+        return repository.findById(id);
     }
 
     @PutMapping("/account/{id}")
