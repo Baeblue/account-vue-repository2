@@ -1,8 +1,19 @@
 <template>
   <div class="list">
     <div class="header">
-      <h3>이번 달 지출 목록</h3>
-      <div class="totalArea">{{ total }} 원</div>
+      <div class="subject">
+        <h3>이번 달 지출 목록</h3>
+        <div class="totalArea">{{ total }} 원</div>
+      </div>
+
+      <div class="search">
+        <h3>검색할 년/월을 입력하세요.</h3>
+        <div class="content">
+          <input type="date" class="date" required
+                 v-model="date"/>
+          <button @click="getAccountsByDate" class="btn btn-success">검색</button>
+        </div>
+      </div>
     </div>
 
     <table>
@@ -46,6 +57,7 @@
         accounts: [],
         row: null,
         total: 0,
+        date: null,
       }
     },
     mounted() {
@@ -59,12 +71,13 @@
             // initialize total value.
             this.total = res.data
               .map(obj => obj.price)
-              .reduce((price1, price2) => price1 + price2, 0);
+              .reduce((price1, price2) => price1 + price2, 0)
+              .toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
           })
           .catch(e => console.log(e));
       },
-      getAccountsBy() {
-        ApiSvc.get("/list")
+      getAccountsByDate() {
+        ApiSvc.get(`/monthly/${date}`)
           .then(res => {
             this.accounts = res.data;
             // initialize total value.
@@ -115,14 +128,42 @@
     padding-bottom: 200px;
 
     .header {
+      width: 1000px;
+      margin: 0 auto;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
       align-items: center;
-      height: 200px;
+      justify-content: space-between;
 
-      .totalArea {
-        font-size: 40px;
+      .subject {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 200px;
+
+        .totalArea {
+          font-size: 40px;
+        }
+      }
+
+      .search {
+
+        .content {
+          display: flex;
+          justify-content: space-between;
+
+          .date {
+            width: 73%;
+            padding: 6px 0;
+            font-size: 20px;
+          }
+
+          .btn {
+            width: 24%;
+            height: 50px;
+            font-size: 20px;
+          }
+        }
       }
     }
 
