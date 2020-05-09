@@ -2,7 +2,7 @@
   <div class="list">
     <div class="header">
       <h3>이번 달 지출 목록</h3>
-      <div class="totalArea">{{ total }}</div>
+      <div class="totalArea">{{ total }} 원</div>
     </div>
 
     <table>
