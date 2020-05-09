@@ -33,7 +33,6 @@
       </tr>
       </tbody>
     </table>
-    <router-view @refreshData="getAccounts"></router-view>
   </div>
 </template>
 
@@ -54,6 +53,17 @@
     },
     methods: {
       getAccounts() {
+        ApiSvc.get("/list")
+          .then(res => {
+            this.accounts = res.data;
+            // initialize total value.
+            this.total = res.data
+              .map(obj => obj.price)
+              .reduce((price1, price2) => price1 + price2, 0);
+          })
+          .catch(e => console.log(e));
+      },
+      getAccountsBy() {
         ApiSvc.get("/list")
           .then(res => {
             this.accounts = res.data;

@@ -81,7 +81,7 @@ public class AccountController {
 
     @GetMapping("/monthly/{date}")
     public List<Account> findByDate(@PathVariable Date date) {
-        List<Account> monthlyList = repository.findByDate(date);
+        List<Account> monthlyList = repository.findByDate(date);  // filter
         return monthlyList;
     }
 }
