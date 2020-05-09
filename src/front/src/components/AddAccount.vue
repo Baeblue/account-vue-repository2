@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="addAccount">
     <div class="addForm">
       <br/>
       <div v-if="!submitted">
@@ -115,8 +115,11 @@
 
 <style lang="scss" scoped>
 
-  .addForm {
-    max-width: 300px;
-    margin: auto;
+  .addAccount {
+
+    .addForm {
+      max-width: 300px;
+      margin: auto;
+    }
   }
 </style>

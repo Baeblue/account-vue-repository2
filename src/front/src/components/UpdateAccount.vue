@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="updateAccount">
     <div class="update">
       <br/>
       <div v-if="!submitted">
@@ -129,8 +129,11 @@
 
 <style lang="scss" scoped>
 
-  .update {
-    max-width: 300px;
-    margin: auto;
+  .updateAccount {
+
+    .update {
+      max-width: 300px;
+      margin: auto;
+    }
   }
 </style>

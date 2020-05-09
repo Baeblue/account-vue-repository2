@@ -15,9 +15,7 @@
       <br/>
       <br/>
       <h3>지출 목록</h3>
-      <div class="totalArea">
-        {{ total }}
-      </div>
+      <div class="totalArea">{{ total }}</div>
       <br/>
       <table>
         <thead>
@@ -31,7 +29,7 @@
         </thead>
 
         <tbody>
-        <tr v-for="(row, index) in account.reverse()" :key="index">
+        <tr v-for="(row, index) in account" :key="index">
           <td>{{ row.date }}</td>
           <td>{{ row.category }}</td>
           <td>{{ row.content }}</td>
@@ -49,6 +47,9 @@
 
   export default {
     name: "SearchDate",
+    props: {
+      total: 0,
+    },
     data() {
       return {
         date: "",

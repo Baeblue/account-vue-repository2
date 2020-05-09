@@ -1,17 +1,10 @@
 <template>
-  <div id="app" class="container-fluid">
-    <transition-group name="component-fade" mode="out-in">
-      <div class="home" key="0">
-        <h2>안녕 가계부!</h2>
-      </div>
-      <nav key="1">
-        <router-link class="btn btn-primary" to="/addAccount">지출 입력하기</router-link>
-        <router-link class="btn btn-primary" to="/list">이번 달 목록 보기</router-link>
-        <router-link class="btn btn-primary" to="/searchList">월별 지출액 보기</router-link>
-      </nav>
-      <br key="2"/>
-      <router-view key="3"/>
-    </transition-group>
+  <div id="app">
+    <header-component/>
+
+    <transition name="component-fade" mode="out-in">
+      <router-view/>
+    </transition>
   </div>
 </template>
 
@@ -21,6 +14,7 @@
   import MonthlyList from './components/MonthlyList';
   import UpdateAccount from "./components/UpdateAccount";
   import SearchList from "./components/SearchList";
+  import HeaderComponent from "./components/HeaderComponent";
 
   import VueRouter from 'vue-router';
 
@@ -36,13 +30,24 @@
   });
 
   export default {
-    name: 'app',
+    name: "app",
     router,
-    components: {List, AddAccount, MonthlyList, UpdateAccount, SearchList},
+    components: {
+      List,
+      AddAccount,
+      MonthlyList,
+      UpdateAccount,
+      SearchList,
+      HeaderComponent
+    },
   }
 </script>
 
 <style lang="scss" scoped>
+
+  #app {
+    height: 900px;
+  }
 
   .component-fade-leave-active {
     opacity: 0;
@@ -54,21 +59,5 @@
 
   .component-fade-enter-active {
     transition: opacity .5s ease;
-  }
-
-  .container-fluid {
-    text-align: center;
-
-    .home {
-      color: #00ed7c;
-      margin: 20px;
-    }
-
-    nav {
-
-      .btn-primary {
-        margin-right: 10px;
-      }
-    }
   }
 </style>
