@@ -21,7 +21,7 @@
           </thead>
 
           <tbody>
-          <tr v-for="row in account.reverse()" :key="row.id">
+          <tr v-for="row in account" :key="row.id">
             <td>{{ getCustomizedDate(new Date(row.date)) }}</td>
             <td>{{ row.category }}</td>
             <td>{{ row.content }}</td>

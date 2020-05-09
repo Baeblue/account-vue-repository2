@@ -11,8 +11,6 @@
       </nav>
       <br key="2"/>
       <router-view key="3"/>
-
-
     </transition-group>
   </div>
 </template>
@@ -46,12 +44,16 @@
 
 <style lang="scss" scoped>
 
-  .component-fade-enter-active, .component-fade-leave-active {
-    transition: opacity .5s ease;
+  .component-fade-leave-active {
+    opacity: 0;
   }
 
   .component-fade-enter, .component-fade-leave-to {
     opacity: 0;
+  }
+
+  .component-fade-enter-active {
+    transition: opacity .5s ease;
   }
 
   .container-fluid {
