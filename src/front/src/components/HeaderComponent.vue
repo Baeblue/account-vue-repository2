@@ -8,7 +8,6 @@
       <router-link class="btn btn-primary" to="/list">이번 달 목록 보기</router-link>
       <router-link class="btn btn-primary" to="/searchList">월별 지출액 보기</router-link>
     </nav>
-    <br/>
   </div>
 </template>
 
@@ -22,10 +21,11 @@
 
   .headerComponent {
     min-width: 1000px;
-    width: auto;
+    /*width: auto;*/
     height: 350px;
     border-bottom: 1px solid gray;
-    background-image: url("../../../front/src/assets/logo.png");
+    /*background-image: url("../../../front/src/assets/logo.png");*/
+    background-image: url("../../../front/src/assets/pig.jpg");
 
     .home {
       display: flex;
