@@ -21,7 +21,8 @@
 
         <div class="form-group">
           <label for="content">내용</label>
-          <input type="text" class="form-control" placeholder="내용 입력" id="content" v-model="account.content" name="content">
+          <input type="text" class="form-control" placeholder="내용 입력" id="content"
+                 v-model="account.content"/>
         </div>
 
         <div>
@@ -40,7 +41,8 @@
 
         <div class="form-group">
           <label for="price">금액</label>
-          <input type="text" class="form-control" placeholder="금액 입력" id="price" v-model="account.price" name="price">
+          <input type="text" class="form-control" placeholder="금액 입력" id="price"
+                 v-model="account.price"/>
         </div>
 
         <button @click="updateRow(account.id)" class="btn btn-success">등록</button>
@@ -58,7 +60,6 @@
 
 <script>
   import ApiSvc from "@js/ApiSvc.js";
-  import EventBus from "@js/EventBus";
 
   export default {
     name: "UpdateAccount",

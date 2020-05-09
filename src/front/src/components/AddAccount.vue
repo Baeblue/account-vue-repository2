@@ -7,22 +7,22 @@
 
         <div>
           <b-dropdown
-            id="dropdown-1" class="m-md-2" required
+            id="dropdown-1" class="m-2" required
             :text="selectedCategory"
           >
-            <b-dropdown-item @click="selectCategory('식비')">식비</b-dropdown-item>
-            <b-dropdown-item @click="selectCategory('교통비')">교통비</b-dropdown-item>
-            <b-dropdown-item @click="selectCategory('생필품비')">생필품비</b-dropdown-item>
-            <b-dropdown-item @click="selectCategory('자기계발비')">자기계발비</b-dropdown-item>
-            <b-dropdown-item @click="selectCategory('경조사비')">경조사비</b-dropdown-item>
-            <b-dropdown-item @click="selectCategory('기타')">기타</b-dropdown-item>
+            <b-dropdown-item
+              v-for="category in CategoryList" :key="category.id"
+              @click="selectCategory(category)"
+            >
+              {{ category }}
+            </b-dropdown-item>
           </b-dropdown>
         </div>
 
         <div class="form-group">
           <label for="content">내용</label>
-          <input type="text" class="form-control" placeholder="내용 입력" id="content" v-model="account.content"
-                 name="content">
+          <input type="text" class="form-control" placeholder="내용 입력" id="content"
+                 v-model="account.content"/>
         </div>
 
         <div>
@@ -31,7 +31,7 @@
             :text="selectedMethod"
           >
             <b-dropdown-item
-              v-for="method in MethodList" v-bind:key="method.id"
+              v-for="method in MethodList" :key="method.id"
               @click="selectMethod(method)"
             >
               {{ method }}
@@ -41,7 +41,8 @@
 
         <div class="form-group">
           <label for="price">금액</label>
-          <input type="text" class="form-control" placeholder="금액 입력" id="price" v-model="account.price" name="price">
+          <input type="text" class="form-control" placeholder="금액 입력" id="price"
+                 v-model="account.price"/>
         </div>
 
         <button @click="addRow" class="btn btn-success">등록</button>
@@ -75,16 +76,11 @@
         },
         submitted: false,
         selectedCategory: '항목 선택',
+        CategoryList: ['식비', '교통비', '생필품비', '자기계발비', '경조사비', '기타'],
 
         selectedMethod: '수단 선택',
         MethodList: ['현금', '체크카드', '신용카드', '상품권', '기타'],
       };
-    },
-    created() {
-      EventBus.$on("use-eventBus", receiveRow => {
-        this.account = receiveRow;
-        console.log(this.account);
-      });
     },
     methods: {
       selectCategory(selectedItem) {
