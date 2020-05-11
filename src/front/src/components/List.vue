@@ -34,7 +34,7 @@
         <td>{{ row.category }}</td>
         <td>{{ row.content }}</td>
         <td>{{ row.method }}</td>
-        <td>{{ row.price }}</td>
+        <td>{{ formatPrice(row.price) }}</td>
         <td>
           <router-link :to="`/updateAccount/${row.id}`">
             <button class="btn btn-primary">수정</button>
@@ -56,6 +56,7 @@
       return {
         accounts: [],
         row: null,
+        price: 0,
         total: 0,
         date: null,
       }
@@ -105,6 +106,11 @@
         }
 
         return result;
+      },
+      formatPrice(price) {
+        let formatPrice = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+        return formatPrice;
       },
       deleteRow(id) {
         ApiSvc.delete(`/account/${id}`)
