@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.DateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -29,9 +30,14 @@ public class AccountController {
         // 현재 /년/월/에 충족되는 account 만 filter 해서 프론트에 전달
         TimeZone tz = TimeZone.getTimeZone("Asia/Seoul");
         Calendar cal = Calendar.getInstance(tz);
-        System.out.println((cal.get(Calendar.YEAR) + "년" + (cal.get(Calendar.MONTH)+1) + "월" + cal.get(Calendar.DATE) + "일"));
+        System.out.println(cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH)+1) + "-" + cal.get(Calendar.DATE));
 
-        return list;
+        List<Account> filteredList = list.stream()
+                .filter(a -> a.getYearMonth().equals(cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH) + 1)))
+                .collect(Collectors.toList());
+
+        //return list;
+        return filteredList;
     }
 
     @PostMapping("/account")

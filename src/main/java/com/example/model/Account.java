@@ -30,4 +30,11 @@ public class Account {
         this.method = method;
         this.price = price;
     }
+
+    public String getYearMonth() {
+        String filterDate = "";   // 2020-05-11 -> 2020-5
+        filterDate = this.date.getYear()+1900 + "-" + (this.date.getMonth()+1);
+
+        return filterDate;
+    }
 }
