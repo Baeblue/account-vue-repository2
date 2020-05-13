@@ -1,13 +1,13 @@
 package com.example.controller;
 
 import com.example.model.Account;
+import com.example.model.SelectedDate;
 import com.example.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.DateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -25,8 +25,6 @@ public class AccountController {
 
         List<Account> list = repository.findAll();
 
-        list.sort((a1, a2) -> a2.getDate().compareTo(a1.getDate()));
-
         // 현재 /년/월/에 충족되는 account 만 filter 해서 프론트에 전달
         TimeZone tz = TimeZone.getTimeZone("Asia/Seoul");
         Calendar cal = Calendar.getInstance(tz);
@@ -36,7 +34,8 @@ public class AccountController {
                 .filter(a -> a.getYearMonth().equals(cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH) + 1)))
                 .collect(Collectors.toList());
 
-        //return list;
+        filteredList.sort((a1, a2) -> a2.getDate().compareTo(a1.getDate()));
+
         return filteredList;
     }
 
@@ -85,29 +84,20 @@ public class AccountController {
         }
     }
 
-    @GetMapping("/monthly")
-    public List<Account> findByDate() {  // , @RequestBody Account account
-        //List<Account> monthlyList = repository.findByDate(date);  // filter
+    @PostMapping("/monthly")
+    public List<Account> findByDate(@RequestBody SelectedDate selectedDate) {
         List<Account> list = repository.findAll();
-        list.sort((a1, a2) -> a2.getDate().compareTo(a1.getDate()));
-//        List<Account> filteredList = list.stream()
-//                .filter(a -> a.getYearMonth().equals(cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH) + 1)))
-//                .collect(Collectors.toList());
 
-//        Account _account = repository.save(
-//                new Account(
-//                        account.getCategory(),
-//                        account.getContent(),
-//                        account.getMethod(),
-//                        account.getPrice()
-//                )
-//        );
+        String selectedYear = selectedDate.getYear();
+        String selectedMonth = selectedDate.getMonth();
+        System.out.println(selectedYear + "-" + selectedMonth);
 
-//        List<Account> monthlyList = list.stream()
-//                .filter(a -> a.getYearMonth().equals())    // 검색란에 들어온 년/월.
-//                .collect(Collectors.toList());
-        //System.out.println((account.getDate().getYear()) + "-" + (account.getDate().getMonth()+1));
-        //this.date.getYear()+1900 + "-" + (this.date.getMonth()+1)
-        return list;
+        List<Account> selectedList = list.stream()
+        .filter(a -> a.getYearMonth().equals(selectedYear + "-" + selectedMonth))
+        .collect(Collectors.toList());
+
+        selectedList.sort((a1, a2) -> a2.getDate().compareTo(a1.getDate()));
+
+        return selectedList;
     }
 }

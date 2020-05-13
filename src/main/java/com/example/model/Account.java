@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.time.YearMonth;
 import java.util.Date;
 
 @Data
@@ -38,11 +37,4 @@ public class Account {
 
         return filterDate;
     }
-
-//    private YearMonth yearMonth;
-//
-//    public YearMonth searchByYearMonth(Date date) {
-//        yearMonth = YearMonth.of(date);
-//        return yearMonth;
-//    }
 }

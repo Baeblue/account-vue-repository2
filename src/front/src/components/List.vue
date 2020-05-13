@@ -9,14 +9,29 @@
       <div class="search">
         <h3>검색할 년/월을 입력하세요.</h3>
         <div class="content">
-          <date-picker class="month" v-model="date" lang="en" type="month" format="YYYY-MM"
-                       placeholder="Select Year, Month" :text="selectedDate"></date-picker>
-<!--          <date-dropdown default="" v-model="selectedDate"/>-->
-<!--          <input type="month" class="month" required-->
-<!--                 :text="selectedDate" v-model="date"/>  &lt;!&ndash; account.date &ndash;&gt;-->
-          <!--<input type="date" class="date" required
-                 v-model="date"/> -->  <!-- 년/월 만 검색하기. -->
-          <button @click="getAccountsByDate(selectedDate)" class="btn btn-success">검색</button>
+          <b-dropdown
+            id="dropdown-3" class="m-2" required
+            :text="selectedYear"
+          >
+            <b-dropdown-item
+              v-for="year in YearList" :key="year.id"
+              @click="selectYear(year)"
+            >
+              {{ year }}
+            </b-dropdown-item>
+          </b-dropdown>
+          <b-dropdown
+            id="dropdown-4" class="m-2" required
+            :text="selectedMonth"
+          >
+            <b-dropdown-item
+              v-for="month in MonthList" :key="month.id"
+              @click="selectMonth(month)"
+            >
+              {{ month }}
+            </b-dropdown-item>
+          </b-dropdown>
+          <button @click="getAccountsByDate()" class="btn btn-success">검색</button>
         </div>
       </div>
     </div>
@@ -57,22 +72,34 @@
 
   export default {
     name: "List",
-    // components: {
-    //   DatePicker
-    // },
     data() {
       return {
         accounts: [],
         row: null,
         total: 0,
-        date: '',
-        selectedDate: null,
+        selectedDate: {
+          year: "",
+          month: "",
+        },
+        selectedYear: '년도 선택',
+        YearList: ['2020', '2021', '2022', '2023', '2024', '2025'],
+
+        selectedMonth: '월 선택',
+        MonthList: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
       }
     },
     mounted() {
       this.getAccounts();
     },
     methods: {
+      selectYear(selectedItem) {
+        this.selectedYear = selectedItem;
+        this.selectedDate.year = this.selectedYear;
+      },
+      selectMonth(selectedItem) {
+        this.selectedMonth = selectedItem;
+        this.selectedDate.month = this.selectedMonth;
+      },
       getAccounts() {
         ApiSvc.get("/list")
           .then(res => {
@@ -85,27 +112,22 @@
           })
           .catch(e => console.log(e));
       },
-      getAccountsByDate(selectedItem) {
-        ApiSvc.get("/monthly")
-          .then(res => {
-            if(substr(this.account.date, 0, 7) == selectedItem) {
-              this.accounts = res.data;
-              console.log(date);
-              console.log(res.data);
-              // initialize total value.
-              this.total = res.data
-                .map(obj => obj.price)
-                .reduce((price1, price2) => price1 + price2, 0)
-                .toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-              //this.getAccounts();
-            }
+      getAccountsByDate() {
+        const requestData = {
+          year: this.selectedDate.year,
+          month: this.selectedDate.month
+        };
 
+        ApiSvc.post("/monthly", requestData)
+          .then(res => {
+            this.accounts = res.data;
+            // initialize total value.
+            this.total = res.data
+              .map(obj => obj.price)
+              .reduce((price1, price2) => price1 + price2, 0)
+              .toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
           })
-          .catch(e => {
-            console.log(e)
-            console.log(((this.account.date.getFullYear()) + "-" + (this.account.date.getMonth() + 1)));
-            console.log(this.selectedDate);
-          });
+          .catch(e => console.log(e));
       },
       getCustomizedDate(date) {
         // 2020-04-22T15:00:00.000+0000

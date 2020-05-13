@@ -11,9 +11,7 @@
 <script>
   import List from './components/List';
   import AddAccount from './components/AddAccount';
-  import MonthlyList from './components/MonthlyList';
   import UpdateAccount from "./components/UpdateAccount";
-  import SearchList from "./components/SearchList";
   import HeaderComponent from "./components/HeaderComponent";
 
   import VueRouter from 'vue-router';
@@ -23,9 +21,7 @@
     routes: [
       {path: '/list', component: List},
       {path: '/addAccount', component: AddAccount},
-      {path: '/monthlyList', component: MonthlyList},
       {path: '/updateAccount/:id', component: UpdateAccount, props: true},
-      {path: '/searchList', component: SearchList}
     ]
   });
 
@@ -35,9 +31,7 @@
     components: {
       List,
       AddAccount,
-      MonthlyList,
       UpdateAccount,
-      SearchList,
       HeaderComponent
     },
   }
