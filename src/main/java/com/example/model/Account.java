@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.time.YearMonth;
 import java.util.Date;
 
 @Data
@@ -33,8 +34,15 @@ public class Account {
 
     public String getYearMonth() {
         String filterDate = "";   // 2020-05-11 -> 2020-5
-        filterDate = this.date.getYear()+1900 + "-" + (this.date.getMonth()+1);
+        filterDate = (this.date.getYear()+1900) + "-" + (this.date.getMonth()+1);
 
         return filterDate;
     }
+
+//    private YearMonth yearMonth;
+//
+//    public YearMonth searchByYearMonth(Date date) {
+//        yearMonth = YearMonth.of(date);
+//        return yearMonth;
+//    }
 }

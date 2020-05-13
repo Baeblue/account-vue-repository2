@@ -85,9 +85,29 @@ public class AccountController {
         }
     }
 
-    @GetMapping("/monthly/{date}")
-    public List<Account> findByDate(@PathVariable Date date) {
-        List<Account> monthlyList = repository.findByDate(date);  // filter
-        return monthlyList;
+    @GetMapping("/monthly")
+    public List<Account> findByDate() {  // , @RequestBody Account account
+        //List<Account> monthlyList = repository.findByDate(date);  // filter
+        List<Account> list = repository.findAll();
+        list.sort((a1, a2) -> a2.getDate().compareTo(a1.getDate()));
+//        List<Account> filteredList = list.stream()
+//                .filter(a -> a.getYearMonth().equals(cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH) + 1)))
+//                .collect(Collectors.toList());
+
+//        Account _account = repository.save(
+//                new Account(
+//                        account.getCategory(),
+//                        account.getContent(),
+//                        account.getMethod(),
+//                        account.getPrice()
+//                )
+//        );
+
+//        List<Account> monthlyList = list.stream()
+//                .filter(a -> a.getYearMonth().equals())    // 검색란에 들어온 년/월.
+//                .collect(Collectors.toList());
+        //System.out.println((account.getDate().getYear()) + "-" + (account.getDate().getMonth()+1));
+        //this.date.getYear()+1900 + "-" + (this.date.getMonth()+1)
+        return list;
     }
 }

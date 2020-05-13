@@ -9,9 +9,14 @@
       <div class="search">
         <h3>검색할 년/월을 입력하세요.</h3>
         <div class="content">
-          <input type="date" class="date" required
-                 v-model="date"/>
-          <button @click="getAccountsByDate" class="btn btn-success">검색</button>
+          <date-picker class="month" v-model="date" lang="en" type="month" format="YYYY-MM"
+                       placeholder="Select Year, Month" :text="selectedDate"></date-picker>
+<!--          <date-dropdown default="" v-model="selectedDate"/>-->
+<!--          <input type="month" class="month" required-->
+<!--                 :text="selectedDate" v-model="date"/>  &lt;!&ndash; account.date &ndash;&gt;-->
+          <!--<input type="date" class="date" required
+                 v-model="date"/> -->  <!-- 년/월 만 검색하기. -->
+          <button @click="getAccountsByDate(selectedDate)" class="btn btn-success">검색</button>
         </div>
       </div>
     </div>
@@ -52,13 +57,16 @@
 
   export default {
     name: "List",
+    // components: {
+    //   DatePicker
+    // },
     data() {
       return {
         accounts: [],
         row: null,
-        price: 0,
         total: 0,
-        date: null,
+        date: '',
+        selectedDate: null,
       }
     },
     mounted() {
@@ -77,16 +85,27 @@
           })
           .catch(e => console.log(e));
       },
-      getAccountsByDate() {
-        ApiSvc.get(`/monthly/${date}`)
+      getAccountsByDate(selectedItem) {
+        ApiSvc.get("/monthly")
           .then(res => {
-            this.accounts = res.data;
-            // initialize total value.
-            this.total = res.data
-              .map(obj => obj.price)
-              .reduce((price1, price2) => price1 + price2, 0);
+            if(substr(this.account.date, 0, 7) == selectedItem) {
+              this.accounts = res.data;
+              console.log(date);
+              console.log(res.data);
+              // initialize total value.
+              this.total = res.data
+                .map(obj => obj.price)
+                .reduce((price1, price2) => price1 + price2, 0)
+                .toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+              //this.getAccounts();
+            }
+
           })
-          .catch(e => console.log(e));
+          .catch(e => {
+            console.log(e)
+            console.log(((this.account.date.getFullYear()) + "-" + (this.account.date.getMonth() + 1)));
+            console.log(this.selectedDate);
+          });
       },
       getCustomizedDate(date) {
         // 2020-04-22T15:00:00.000+0000
@@ -158,8 +177,8 @@
           display: flex;
           justify-content: space-between;
 
-          .date {
-            width: 73%;
+          .month {
+            width: 300px;      //width: 73%;
             padding: 6px 0;
             font-size: 20px;
           }
