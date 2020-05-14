@@ -13,6 +13,7 @@
   import AddAccount from './components/AddAccount';
   import UpdateAccount from "./components/UpdateAccount";
   import HeaderComponent from "./components/HeaderComponent";
+  import SearchList from "./components/SearchList";
 
   import VueRouter from 'vue-router';
 
@@ -22,6 +23,7 @@
       {path: '/list', component: List},
       {path: '/addAccount', component: AddAccount},
       {path: '/updateAccount/:id', component: UpdateAccount, props: true},
+      {path: '/searchList', component: SearchList},
     ]
   });
 
@@ -32,7 +34,8 @@
       List,
       AddAccount,
       UpdateAccount,
-      HeaderComponent
+      HeaderComponent,
+      SearchList
     },
   }
 </script>
