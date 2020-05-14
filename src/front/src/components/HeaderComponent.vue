@@ -4,9 +4,9 @@
       <div>안녕 가계부!</div>
     </div>
     <nav>
-      <router-link class="btn btn-primary" to="/addAccount">지출 입력하기</router-link>
-      <router-link class="btn btn-primary" to="/list">이번 달 목록 보기</router-link>
-      <router-link class="btn btn-primary" to="/searchList">월별 지출액 보기</router-link>   <!-- 디자인할 때 빼기 -->
+      <router-link class="btn" to="/addAccount">지출 입력하기</router-link>
+      <router-link class="btn" to="/list">이번 달 목록 보기</router-link>
+      <router-link class="btn" to="/searchList">월별 지출액 보기</router-link>   <!-- 디자인할 때 빼기 -->
     </nav>
   </div>
 </template>
@@ -22,10 +22,10 @@
   .headerComponent {
     min-width: 1000px;
     /*width: auto;*/
-    height: 350px;
+    height: 360px;
     border-bottom: 1px solid gray;
     /*background-image: url("../../../front/src/assets/logo.png");*/
-    background-image: url("../../../front/src/assets/pig.jpg");
+    background-image: url("../../../front/src/assets/pig2.jpg");
 
     .home {
       display: flex;
@@ -42,12 +42,20 @@
       align-items: center;
       height: 100px;
 
-      .btn-primary {
+      .btn {
         margin: 0 20px;
-        color: black;
-        background-color: white;
+        color: white;
+        background-color: #ff797d;
+        box-shadow: .5px .5px 1px 1px gray;  // x-position y-position blur spread color
         font-size: 22px;
       }
+
+      /*.btn-primary {*/
+      /*  margin: 0 20px;*/
+      /*  color: rgba(0, 0, 0, 0.84);*/
+      /*  background-color: #ff8fa0;*/
+      /*  font-size: 22px;*/
+      /*}*/
 
       .btn-primary:hover {
         background-color: darkgray;

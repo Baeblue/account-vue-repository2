@@ -2,7 +2,7 @@
   <div class="list">
     <div class="header">
       <div class="subject">
-        <h3>이번 달 지출 목록</h3>
+        <h3>누적 지출액</h3>
         <div class="totalArea">{{ total }} 원</div>
       </div>
 
@@ -220,11 +220,13 @@
       width: 1000px;
 
       thead {
-        border: 1px solid darkgray;
+        //border: 1px solid darkgray;
         border-radius: 30px;
+        background-color: darkgray;   // 바꾸기
+        color: white;
 
         tr:hover {
-          background-color: white;
+          background-color: darkgray;
         }
 
         tr th {
@@ -245,7 +247,7 @@
       }
 
       tr:hover {
-        background-color: rgb(240, 240, 240);
+        background-color: rgb(240, 240, 240);    // rgb(240, 240, 240)
       }
     }
   }
