@@ -34,7 +34,8 @@ public class AccountController {
                 .filter(a -> a.getYearMonth().equals(cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH) + 1)))
                 .collect(Collectors.toList());
 
-        filteredList.sort((a1, a2) -> a2.getDate().compareTo(a1.getDate()));
+        //filteredList.sort((a1, a2) -> a2.getDate().compareTo(a1.getDate()));
+        filteredList.sort((a1, a2) -> a2.getId().compareTo(a1.getId()));
 
         return filteredList;
     }
@@ -96,7 +97,7 @@ public class AccountController {
         .filter(a -> a.searchedYearMonth().equals(selectedYear + "-" + selectedMonth))
         .collect(Collectors.toList());
 
-        selectedList.sort((a1, a2) -> a2.getDate().compareTo(a1.getDate()));
+        selectedList.sort((a1, a2) -> a2.getId().compareTo(a1.getId()));
 
         return selectedList;
     }
