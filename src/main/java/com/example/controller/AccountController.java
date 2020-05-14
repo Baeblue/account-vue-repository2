@@ -93,7 +93,7 @@ public class AccountController {
         System.out.println(selectedYear + "-" + selectedMonth);
 
         List<Account> selectedList = list.stream()
-        .filter(a -> a.getYearMonth().equals(selectedYear + "-" + selectedMonth))
+        .filter(a -> a.searchedYearMonth().equals(selectedYear + "-" + selectedMonth))
         .collect(Collectors.toList());
 
         selectedList.sort((a1, a2) -> a2.getDate().compareTo(a1.getDate()));

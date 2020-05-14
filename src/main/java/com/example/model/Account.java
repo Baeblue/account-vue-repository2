@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Calendar;
 import java.util.Date;
 
 @Data
@@ -32,9 +33,26 @@ public class Account {
     }
 
     public String getYearMonth() {
-        String filterDate = "";   // 2020-05-11 -> 2020-5
-        filterDate = (this.date.getYear()+1900) + "-" + (this.date.getMonth()+1);
+        String filteredDate = "";   // 2020-05-11 -> 2020-5
+        //filterDate = (this.date.getYear()+1900) + "-" + (this.date.getMonth()+1);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(this.date);
+        filteredDate = (cal.get(Calendar.YEAR)) + "-" + (cal.get(Calendar.MONTH) + 1);
 
-        return filterDate;
+        return filteredDate;
+    }
+
+    public String searchedYearMonth() {
+        String filteredDate = "";
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(this.date);
+
+        if ((cal.get(Calendar.MONTH) + 1) < 10) {
+            filteredDate = (cal.get(Calendar.YEAR)) + "-0" + (cal.get(Calendar.MONTH) + 1);
+        } else {
+            filteredDate = (cal.get(Calendar.YEAR)) + "-" + (cal.get(Calendar.MONTH) + 1);
+        }
+
+        return filteredDate;
     }
 }
