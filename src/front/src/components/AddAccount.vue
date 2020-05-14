@@ -60,7 +60,6 @@
 
 <script>
   import ApiSvc from "@js/ApiSvc.js";
-  import EventBus from "@js/EventBus.js";
 
   export default {
     name: "AddAccount",
@@ -118,6 +117,7 @@
   .addAccount {
 
     .addForm {
+      text-align: center;
       max-width: 300px;
       margin: auto;
     }

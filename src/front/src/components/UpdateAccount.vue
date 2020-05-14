@@ -46,6 +46,9 @@
         </div>
 
         <button @click="updateRow(account.id)" class="btn btn-success">등록</button>
+        <router-link to="/list">
+          <button class="btn btn-success">돌아가기</button>
+        </router-link>
       </div>
 
       <div v-else>
@@ -113,10 +116,10 @@
           price: this.account.price
         };
 
-        ApiSvc.put("/account/" + id, requestData)
+        ApiSvc.put(`/account/${id}`, requestData)
           .then(res => {
             this.account = res.data;
-            console.log("Success! You edited the account");
+            console.log("Success! You edited the account.");
           })
           .catch(e => {
             console.log(e)
@@ -132,6 +135,7 @@
   .updateAccount {
 
     .update {
+      text-align: center;
       max-width: 300px;
       margin: auto;
     }

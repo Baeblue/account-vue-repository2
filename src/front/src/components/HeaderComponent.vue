@@ -6,7 +6,7 @@
     <nav>
       <router-link class="btn btn-primary" to="/addAccount">지출 입력하기</router-link>
       <router-link class="btn btn-primary" to="/list">이번 달 목록 보기</router-link>
-      <router-link class="btn btn-primary" to="/searchList">월별 지출액 보기</router-link>
+      <router-link class="btn btn-primary" to="/searchList">월별 지출액 보기</router-link>   <!-- 디자인할 때 빼기 -->
     </nav>
   </div>
 </template>
