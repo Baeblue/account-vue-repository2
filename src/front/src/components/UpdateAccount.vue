@@ -1,7 +1,6 @@
 <template>
   <div class="updateAccount">
     <div class="update">
-      <br/>
       <div v-if="!submitted">
         <h3>수정사항을 입력하세요.</h3>
 
@@ -46,16 +45,16 @@
         </div>
 
         <button @click="updateRow(account.id)" class="btn btn-success">등록</button>
-        <router-link to="/list">
-          <button class="btn btn-success">돌아가기</button>
-        </router-link>
+<!--        <router-link to="/list">-->
+          <button @click="goBack()" class="btn btn-success">돌아가기</button>    <!-- 그냥 이전 화면으로 -->
+<!--        </router-link>-->
       </div>
 
       <div v-else>
         <h4>수정되었습니다.</h4>
-        <router-link to="/list">
-          <button class="btn btn-success">확인</button>
-        </router-link>
+<!--        <router-link to="/list">-->
+          <button @click="goBack()" class="btn btn-success">확인</button>   <!-- 다른 달 수정 시 그 달의 리스트로 -->
+<!--        </router-link>-->
       </div>
     </div>
   </div>
@@ -63,6 +62,7 @@
 
 <script>
   import ApiSvc from "@js/ApiSvc.js";
+  import EventBus from "@js/EventBus";
 
   export default {
     name: "UpdateAccount",
@@ -91,6 +91,14 @@
       this.getAccount(this.id);
     },
     methods: {
+      goBack() {
+        //window.history.length > 1 ?
+          this.$router.go(-1);
+          //: this.$router.push('/')
+        // EventBus.$on("use-eventBus", accounts => {
+        //   this.accounts = accounts;
+        // });
+      },
       getAccount(id) {
         ApiSvc.get(`/account/${id}`)
           .then(res => {
@@ -137,7 +145,7 @@
     .update {
       text-align: center;
       max-width: 300px;
-      margin: auto;
+      margin: 50px auto;
     }
   }
 </style>
