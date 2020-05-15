@@ -6,7 +6,7 @@
     <nav>
       <router-link class="btn" to="/addAccount">지출 입력하기</router-link>
       <router-link class="btn" to="/list">이번 달 목록 보기</router-link>
-      <router-link class="btn" to="/searchList">월별 지출액 보기</router-link>   <!-- 디자인할 때 빼기 -->
+      <router-link class="btn" to="/searchList">월별 지출액 보기</router-link>
     </nav>
   </div>
 </template>
@@ -23,7 +23,7 @@
     min-width: 1000px;
     /*width: auto;*/
     height: 360px;
-    border-bottom: 1px solid gray;
+    /*border-bottom: 1px solid gray;*/
     /*background-image: url("../../../front/src/assets/logo.png");*/
     background-image: url("../../../front/src/assets/pig2.jpg");
 
@@ -46,7 +46,7 @@
         margin: 0 20px;
         color: white;
         background-color: #ff797d;
-        box-shadow: .5px .5px 1px 1px gray;  // x-position y-position blur spread color
+        box-shadow: .7px .7px 1px 1px gray;  // x-position y-position blur spread color
         font-size: 22px;
       }
 
@@ -57,8 +57,8 @@
       /*  font-size: 22px;*/
       /*}*/
 
-      .btn-primary:hover {
-        background-color: darkgray;
+      .btn:hover {
+        background-color: gray;
       }
     }
   }

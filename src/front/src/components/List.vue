@@ -2,7 +2,7 @@
   <div class="list">
     <div class="header">
       <div class="subject">
-        <h3>누적 지출액</h3>
+        <h3>이번 달 누적 지출액</h3>
         <div class="totalArea">{{ total }} 원</div>
       </div>
 
@@ -20,6 +20,7 @@
               {{ year }}
             </b-dropdown-item>
           </b-dropdown>
+
           <b-dropdown
             id="dropdown-4" class="m-2" required
             :text="selectedMonth"
@@ -31,6 +32,7 @@
               {{ month }}
             </b-dropdown-item>
           </b-dropdown>
+
           <button @click="getAccountsByDate()" class="btn btn-success">검색</button>
         </div>
       </div>
@@ -156,7 +158,6 @@
       deleteRow(id) {
         ApiSvc.delete(`/account/${id}`)
           .then(res => {
-            //this.account.splice(id, 1)
             console.log(id);
             console.log(res.data);
             this.getAccounts();
@@ -199,16 +200,21 @@
           display: flex;
           justify-content: space-between;
 
-          .month {
-            width: 300px;      //width: 73%;
-            padding: 6px 0;
-            font-size: 20px;
+          .m-2 {
+            height: 40px;
           }
+
+          /*.month {*/
+          /*  width: 300px;      //width: 73%;*/
+          /*  padding: 6px 0;*/
+          /*  font-size: 20px;*/
+          /*}*/
 
           .btn {
             width: 24%;
-            height: 50px;
-            font-size: 20px;
+            height: 40px;   // 줄이면 위로 올라가 보임.
+            margin-top: 8px;
+            font-size: 17px;
           }
         }
       }
@@ -222,7 +228,7 @@
       thead {
         //border: 1px solid darkgray;
         border-radius: 30px;
-        background-color: darkgray;   // 바꾸기
+        background-color: darkgray;
         color: white;
 
         tr:hover {
@@ -247,7 +253,7 @@
       }
 
       tr:hover {
-        background-color: rgb(240, 240, 240);    // rgb(240, 240, 240)
+        background-color: rgb(255, 239, 241);    // rgb(240, 240, 240)
       }
     }
   }

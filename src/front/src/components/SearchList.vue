@@ -2,7 +2,7 @@
   <div class="searchList">
     <div class="header">
       <div class="subject">
-        <h3>누적 지출액</h3>
+        <h3>{{ this.selectedDate.year }}년 {{ this.selectedDate.month }}월 누적 지출액</h3>
         <div class="totalArea">{{ total }} 원</div>
       </div>
 
@@ -20,6 +20,7 @@
               {{ year }}
             </b-dropdown-item>
           </b-dropdown>
+
           <b-dropdown
             id="dropdown-4" class="m-2" required
             :text="selectedMonth"
@@ -31,6 +32,7 @@
               {{ month }}
             </b-dropdown-item>
           </b-dropdown>
+
           <button @click="getAccountsByDate()" class="btn btn-success">검색</button>
         </div>
       </div>
@@ -69,6 +71,7 @@
 
 <script>
   import ApiSvc from "@js/ApiSvc.js";
+  import EventBus from "@js/EventBus";
 
   export default {
     name: "SearchList",
@@ -78,8 +81,8 @@
         row: null,
         total: 0,
         selectedDate: {
-          year: "",
-          month: "",
+          year: "____",
+          month: "__",
         },
         selectedYear: '년도 선택',
         YearList: ['2020', '2021', '2022', '2023', '2024', '2025'],
@@ -88,9 +91,6 @@
         MonthList: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
       }
     },
-    // mounted() {
-    //   this.getAccounts();
-    // },
     methods: {
       selectYear(selectedItem) {
         this.selectedYear = selectedItem;
@@ -99,18 +99,6 @@
       selectMonth(selectedItem) {
         this.selectedMonth = selectedItem;
         this.selectedDate.month = this.selectedMonth;
-      },
-      getAccounts() {
-        ApiSvc.get("/list")
-          .then(res => {
-            this.accounts = res.data;
-            // initialize total value.
-            this.total = res.data
-              .map(obj => obj.price)
-              .reduce((price1, price2) => price1 + price2, 0)
-              .toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-          })
-          .catch(e => console.log(e));
       },
       getAccountsByDate() {
         const requestData = {
@@ -128,6 +116,8 @@
               .toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
           })
           .catch(e => console.log(e));
+
+        EventBus.$emit("use-eventBus", this.accounts);
       },
       getCustomizedDate(date) {
         // 2020-04-22T15:00:00.000+0000
@@ -156,10 +146,9 @@
       deleteRow(id) {
         ApiSvc.delete(`/account/${id}`)
           .then(res => {
-            //this.account.splice(id, 1)
             console.log(id);
             console.log(res.data);
-            this.getAccounts();
+            this.getAccountsByDate();
           })
           .catch(e => {
             console.log(e);
@@ -199,16 +188,21 @@
           display: flex;
           justify-content: space-between;
 
-          .month {
-            width: 300px;      //width: 73%;
-            padding: 6px 0;
-            font-size: 20px;
+          .m-2 {
+            height: 40px;
           }
+
+          /*.month {*/
+          /*  width: 300px;      //width: 73%;*/
+          /*  padding: 6px 0;*/
+          /*  font-size: 20px;*/
+          /*}*/
 
           .btn {
             width: 24%;
-            height: 50px;
-            font-size: 20px;
+            height: 40px;
+            margin-top: 8px;
+            font-size: 17px;
           }
         }
       }
@@ -222,7 +216,7 @@
       thead {
         //border: 1px solid darkgray;
         border-radius: 30px;
-        background-color: darkgray;   // 바꾸기
+        background-color: darkgray;
         color: white;
 
         tr:hover {
@@ -247,7 +241,7 @@
       }
 
       tr:hover {
-        background-color: rgb(240, 240, 240);    // rgb(240, 240, 240)
+        background-color: rgb(255, 239, 241);
       }
     }
   }

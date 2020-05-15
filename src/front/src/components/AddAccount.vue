@@ -1,9 +1,9 @@
 <template>
   <div class="addAccount">
     <div class="addForm">
-      <br/>
       <div v-if="!submitted">
         <h3>지출을 입력하세요.</h3>
+        <br/>
 
         <div>
           <b-dropdown
@@ -18,12 +18,14 @@
             </b-dropdown-item>
           </b-dropdown>
         </div>
+        <br/>
 
         <div class="form-group">
           <label for="content">내용</label>
           <input type="text" class="form-control" placeholder="내용 입력" id="content"
                  v-model="account.content"/>
         </div>
+        <br/>
 
         <div>
           <b-dropdown
@@ -38,18 +40,21 @@
             </b-dropdown-item>
           </b-dropdown>
         </div>
+        <br/>
 
         <div class="form-group">
           <label for="price">금액</label>
           <input type="text" class="form-control" placeholder="금액 입력" id="price"
                  v-model="account.price"/>
         </div>
+        <br/>
 
         <button @click="addRow" class="btn btn-success">등록</button>
       </div>
 
       <div v-else>
         <h4>등록되었습니다.</h4>
+        <br/>
         <router-link to="/list">
           <button class="btn btn-success">확인</button>
         </router-link>
@@ -119,7 +124,7 @@
     .addForm {
       text-align: center;
       max-width: 300px;
-      margin: auto;
+      margin: 50px auto;
     }
   }
 </style>

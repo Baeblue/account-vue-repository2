@@ -4,9 +4,9 @@
       <div v-if="!submitted">
         <h3>수정사항을 입력하세요.</h3>
 
-        <div>
+        <div class="select">
           <b-dropdown
-            id="dropdown-1" class="m-2" required
+            id="dropdown-1" required
             :text="selectedCategory"
           >
             <b-dropdown-item
@@ -24,9 +24,9 @@
                  v-model="account.content"/>
         </div>
 
-        <div>
+        <div class="select">
           <b-dropdown
-            id="dropdown-2" class="m-2" required
+            id="dropdown-2" required
             :text="selectedMethod"
           >
             <b-dropdown-item
@@ -46,12 +46,13 @@
 
         <button @click="updateRow(account.id)" class="btn btn-success">등록</button>
 <!--        <router-link to="/list">-->
-          <button @click="goBack()" class="btn btn-success">돌아가기</button>    <!-- 그냥 이전 화면으로 -->
+        <button @click="goBack()" class="btn btn-success">돌아가기</button>    <!-- 그냥 이전 화면으로 -->
 <!--        </router-link>-->
       </div>
 
       <div v-else>
         <h4>수정되었습니다.</h4>
+        <br/>
 <!--        <router-link to="/list">-->
           <button @click="goBack()" class="btn btn-success">확인</button>   <!-- 다른 달 수정 시 그 달의 리스트로 -->
 <!--        </router-link>-->
@@ -143,6 +144,23 @@
   .updateAccount {
 
     .update {
+
+      h3 {
+        margin-bottom: 40px;
+      }
+
+      .select {
+        margin-bottom: 40px;
+      }
+
+      .form-group {
+        margin-bottom: 40px;
+      }
+
+      .btn {
+        margin: 0px 5px;
+      }
+
       text-align: center;
       max-width: 300px;
       margin: 50px auto;
