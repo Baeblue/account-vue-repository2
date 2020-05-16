@@ -3,7 +3,7 @@
     <header-component/>
 
     <transition name="component-fade" mode="out-in">
-      <router-view :key="key"/>
+      <router-view/>
     </transition>
   </div>
 </template>
@@ -14,8 +14,6 @@
   import UpdateAccount from "./components/UpdateAccount";
   import HeaderComponent from "./components/HeaderComponent";
   import SearchList from "./components/SearchList";
-  import EventBus from "@js/EventBus";
-  import {EVENT} from "@js/Constants";
 
   import VueRouter from 'vue-router';
 
@@ -31,14 +29,6 @@
 
   export default {
     name: "app",
-    data() {
-      return {
-        key: 0,
-      }
-    },
-    created() {
-      EventBus.$on(EVENT.REFRESH_ROUTER_VIEW, () => this.key++);
-    },
     router,
     components: {
       List,
