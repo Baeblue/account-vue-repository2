@@ -116,8 +116,6 @@
               .toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
           })
           .catch(e => console.log(e));
-
-        EventBus.$emit("use-eventBus", this.accounts);
       },
       getCustomizedDate(date) {
         // 2020-04-22T15:00:00.000+0000
