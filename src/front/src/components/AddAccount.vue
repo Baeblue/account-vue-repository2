@@ -3,51 +3,44 @@
     <div class="addForm">
       <div v-if="!submitted">
         <h3>지출을 입력하세요.</h3>
-        <br/>
 
-        <div>
-          <b-dropdown
-            id="dropdown-1" class="m-2" required
-            :text="selectedCategory"
-          >
-            <b-dropdown-item
-              v-for="category in CategoryList" :key="category.id"
-              @click="selectCategory(category)"
+        <div class="inputArea">
+          <div>
+            <b-dropdown
+              id="dropdown-1" class="m-2" required
+              :text="selectedCategory"
             >
-              {{ category }}
-            </b-dropdown-item>
-          </b-dropdown>
-        </div>
-        <br/>
+              <b-dropdown-item
+                v-for="category in CategoryList" :key="category.id"
+                @click="selectCategory(category)"
+              >
+                {{ category }}
+              </b-dropdown-item>
+            </b-dropdown>
+          </div>
 
-        <div class="form-group">
-          <label for="content">내용</label>
           <input type="text" class="form-control" placeholder="내용 입력" id="content"
                  v-model="account.content"/>
         </div>
-        <br/>
 
-        <div>
-          <b-dropdown
-            id="dropdown-2" class="m-2" required
-            :text="selectedMethod"
-          >
-            <b-dropdown-item
-              v-for="method in MethodList" :key="method.id"
-              @click="selectMethod(method)"
+        <div class="inputArea">
+          <div>
+            <b-dropdown
+              id="dropdown-2" class="m-2" required
+              :text="selectedMethod"
             >
-              {{ method }}
-            </b-dropdown-item>
-          </b-dropdown>
-        </div>
-        <br/>
+              <b-dropdown-item
+                v-for="method in MethodList" :key="method.id"
+                @click="selectMethod(method)"
+              >
+                {{ method }}
+              </b-dropdown-item>
+            </b-dropdown>
+          </div>
 
-        <div class="form-group">
-          <label for="price">금액</label>
           <input type="text" class="form-control" placeholder="금액 입력" id="price"
                  v-model="account.price"/>
         </div>
-        <br/>
 
         <button @click="addRow" class="btn btn-success">등록</button>
       </div>
@@ -122,9 +115,28 @@
   .addAccount {
 
     .addForm {
-      text-align: center;
+      display: flex;
+      justify-content: center;
       max-width: 300px;
       margin: 50px auto;
+
+      div {
+
+        .inputArea {
+          width: 500px;
+          display: flex;
+          align-items: center;
+          margin: 30px 0;
+        }
+
+        .btn-success {
+          width: 100px;
+          display: flex;
+          justify-content: center;
+          font-size: 20px;
+          margin: 0 auto;
+        }
+      }
     }
   }
 </style>
