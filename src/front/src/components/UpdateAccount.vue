@@ -4,44 +4,42 @@
       <div v-if="!submitted">
         <h3>수정사항을 입력하세요.</h3>
 
-        <div class="select">
-          <b-dropdown
-            id="dropdown-1" required
-            :text="selectedCategory"
-          >
-            <b-dropdown-item
-              v-for="category in CategoryList" v-bind:key="category.id"
-              @click="selectCategory(category)"
+        <div class="inputArea">
+          <div>
+            <b-dropdown
+              id="dropdown-1" class="m-2" required
+              :text="selectedCategory"
             >
-              {{ category }}
-            </b-dropdown-item>
-          </b-dropdown>
-        </div>
+              <b-dropdown-item
+                v-for="category in CategoryList" v-bind:key="category.id"
+                @click="selectCategory(category)"
+              >
+                {{ category }}
+              </b-dropdown-item>
+            </b-dropdown>
+          </div>
 
-        <div class="form-group">
-          <label for="content">내용</label>
           <input type="text" class="form-control" placeholder="내용 입력" id="content"
-                 v-model="account.content"/>
+                   v-model="account.content"/>
         </div>
 
-        <div class="select">
-          <b-dropdown
-            id="dropdown-2" required
-            :text="selectedMethod"
-          >
-            <b-dropdown-item
-              v-for="method in MethodList" v-bind:key="method.id"
-              @click="selectMethod(method)"
+        <div class="inputArea">
+          <div>
+            <b-dropdown
+              id="dropdown-2" class="m-2" required
+              :text="selectedMethod"
             >
-              {{ method }}
-            </b-dropdown-item>
-          </b-dropdown>
-        </div>
+              <b-dropdown-item
+                v-for="method in MethodList" v-bind:key="method.id"
+                @click="selectMethod(method)"
+              >
+                {{ method }}
+              </b-dropdown-item>
+            </b-dropdown>
+          </div>
 
-        <div class="form-group">
-          <label for="price">금액</label>
           <input type="text" class="form-control" placeholder="금액 입력" id="price"
-                 v-model="account.price"/>
+                   v-model="account.price"/>
         </div>
 
         <button @click="updateRow(account.id)" class="btn btn-success">등록</button>
@@ -144,26 +142,27 @@
   .updateAccount {
 
     .update {
-
-      h3 {
-        margin-bottom: 40px;
-      }
-
-      .select {
-        margin-bottom: 40px;
-      }
-
-      .form-group {
-        margin-bottom: 40px;
-      }
-
-      .btn {
-        margin: 0px 5px;
-      }
-
+      display: flex;
+      justify-content: center;   // 화면 중앙
       text-align: center;
-      max-width: 300px;
+      max-width: 500px;
       margin: 50px auto;
+
+      div {
+
+        .inputArea {
+          width: 500px;
+          display: flex;   // 옆으로 나란히
+          align-items: center; // 위아래 중앙
+          margin: 30px 0;
+        }
+
+        .btn-success {
+          width: 100px;
+          font-size: 18px;
+          margin: 0px 5px;
+        }
+      }
     }
   }
 </style>

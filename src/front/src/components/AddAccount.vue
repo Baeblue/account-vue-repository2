@@ -117,7 +117,8 @@
     .addForm {
       display: flex;
       justify-content: center;
-      max-width: 300px;
+      text-align: center;
+      max-width: 500px;
       margin: 50px auto;
 
       div {
@@ -133,7 +134,7 @@
           width: 100px;
           display: flex;
           justify-content: center;
-          font-size: 20px;
+          font-size: 18px;
           margin: 0 auto;
         }
       }

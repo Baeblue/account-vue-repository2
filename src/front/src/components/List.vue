@@ -2,7 +2,8 @@
   <div class="list">
     <div class="header">
       <div class="subject">
-        <h3>이번 달 누적 지출액</h3>
+        <h3 v-if="this.selectedDate.year !== '' && this.selectedDate.month !== ''">{{ this.selectedDate.year }}년 {{ this.selectedDate.month }}월 누적 지출액</h3>
+        <h3 v-else>이번 달 누적 지출액</h3>
         <div class="totalArea">{{ total }} 원</div>
       </div>
 
@@ -94,6 +95,10 @@
       this.getAccounts();
     },
     methods: {
+      select() {
+        // this.selectedDate.year !== "";
+        // this.selectedDate.month !== "";
+      },
       selectYear(selectedItem) {
         this.selectedYear = selectedItem;
         this.selectedDate.year = this.selectedYear;
@@ -212,7 +217,7 @@
 
           .btn {
             width: 24%;
-            height: 40px;   // 줄이면 위로 올라가 보임.
+            height: 40px;
             margin-top: 8px;
             font-size: 17px;
           }
