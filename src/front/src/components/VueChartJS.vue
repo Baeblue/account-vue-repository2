@@ -1,10 +1,8 @@
 <template>
   <section class="container">
-    <ul>
-      <li><router-link to="/chartjs">vue-chartjs</router-link></li>
-      <li><router-link to="/charts">vue-charts</router-link></li>
-      <li><router-link to="/chartKick">vue-chartKick</router-link></li>
-    </ul>
+      <router-link to="/chartjs">vue-chartjs</router-link>
+      <router-link to="/charts">vue-charts</router-link>
+      <router-link to="/chartKick">vue-chartKick</router-link>
     <div class="column">
       <h3>Bar Chart....</h3>
       <bar-chart></bar-chart>
