@@ -7,6 +7,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css';
 import DateDropdown from 'vue-date-dropdown';
 import DatePicker from 'vue2-datepicker';
 import VueGraph from 'vue-graph';
+import VueCharts from 'vue-chartjs';
 
 Vue.config.devtools = true;
 Vue.config.productionTip = false;
@@ -15,6 +16,7 @@ Vue.use(BootstrapVue);
 Vue.use(DateDropdown);
 Vue.use(DatePicker);
 Vue.use(VueGraph);
+Vue.use(VueCharts);
 
 new Vue({
   VueRouter,

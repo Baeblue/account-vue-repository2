@@ -27,6 +27,7 @@
 </template>
 
 <script>
+
   export default {
     name: "MonthlyGraph",
     data() {
@@ -38,7 +39,7 @@
           month: "",
         },
         labels: [ this.year + '/' + this.month ],
-        names: ['총액'],
+        names: [ '식비', '교통비', '생필품비', '자기계발비', '경조사비', '기타', '총액' ],
         values: [ this.total ]
       }
     },
