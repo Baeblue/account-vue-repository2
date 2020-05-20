@@ -15,16 +15,11 @@
   import HeaderComponent from "./components/HeaderComponent";
   import SearchList from "./components/SearchList";
   import MonthlyGraph from "./components/MonthlyGraph";
-  import Graph from "./components/Graph";
-  import BaseCharts from "./BaseCharts";
   import EventBus from "@js/EventBus";
   import {EVENT} from "@js/Constants";
   import GraphLine3D from 'vue-graph/src/components/line3d.js';
   import NoteWidget from 'vue-graph/src/widgets/note.js';
   import LegendWidget from 'vue-graph/src/widgets/legends.js';
-  import VueChartJS from "./components/VueChartJS";
-  import VueChartKick from "./components/VueChartKick";
-  import VueCharts from "./components/VueCharts";
 
   // Vue.component(GraphLine3D.name, GraphLine3D);
   // Vue.component(NoteWidget.name, NoteWidget);
@@ -40,22 +35,6 @@
       {path: '/updateAccount/:id', component: UpdateAccount, props: true},
       {path: '/searchList', component: SearchList},
       {path: '/graph', component: MonthlyGraph},
-      {path: '/graph2', component: Graph},
-      {
-        path: '/chartjs',
-        name: 'VueChartJS',
-        component: VueChartJS
-      },
-      {
-        path: '/chartkick',
-        name: 'VueChartKick',
-        component: VueChartKick
-      },
-      {
-        path: '/charts',
-        name: 'VueCharts',
-        component: VueCharts
-      }
     ]
   });
 
@@ -81,14 +60,9 @@
       HeaderComponent,
       SearchList,
       MonthlyGraph,
-      Graph,
       GraphLine3D,
       NoteWidget,
-      LegendWidget,
-      VueCharts,
-      VueChartKick,
-      VueChartJS,
-      BaseCharts,
+      LegendWidget
     },
   }
 </script>
