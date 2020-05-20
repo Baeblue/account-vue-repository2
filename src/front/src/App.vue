@@ -14,8 +14,16 @@
   import UpdateAccount from "./components/UpdateAccount";
   import HeaderComponent from "./components/HeaderComponent";
   import SearchList from "./components/SearchList";
+  import MonthlyGraph from "./components/MonthlyGraph";
   import EventBus from "@js/EventBus";
   import {EVENT} from "@js/Constants";
+  import GraphLine3D from 'vue-graph/src/components/line3d.js';
+  import NoteWidget from 'vue-graph/src/widgets/note.js';
+  import LegendWidget from 'vue-graph/src/widgets/legends.js';
+
+  // Vue.component(GraphLine3D.name, GraphLine3D);
+  // Vue.component(NoteWidget.name, NoteWidget);
+  // Vue.component(LegendWidget.name, LegendWidget);
 
   import VueRouter from 'vue-router';
 
@@ -26,6 +34,7 @@
       {path: '/addAccount', component: AddAccount},
       {path: '/updateAccount/:id', component: UpdateAccount, props: true},
       {path: '/searchList', component: SearchList},
+      {path: '/graph', component: MonthlyGraph},
     ]
   });
 
@@ -49,7 +58,11 @@
       AddAccount,
       UpdateAccount,
       HeaderComponent,
-      SearchList
+      SearchList,
+      MonthlyGraph,
+      GraphLine3D,
+      NoteWidget,
+      LegendWidget
     },
   }
 </script>
