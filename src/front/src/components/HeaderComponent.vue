@@ -9,7 +9,6 @@
         <router-link class="btn" to="/list">이번 달 목록 보기</router-link>
       </div>
       <router-link class="btn" to="/searchList">월별 지출액 보기</router-link>
-      <router-link class="btn" to="/graph">그래프 보기</router-link>
     </nav>
   </div>
 </template>
