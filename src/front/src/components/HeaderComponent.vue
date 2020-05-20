@@ -9,11 +9,13 @@
         <router-link class="btn" to="/list">이번 달 목록 보기</router-link>
       </div>
       <router-link class="btn" to="/searchList">월별 지출액 보기</router-link>
-<!--      <router-link class="btn" to="/graph">그래프 보기</router-link>-->
-<!--      <router-link class="btn" to="/graph2">그래프 보기2</router-link>-->
-      <router-link to="/chartjs">vue-chartjs</router-link>
-<!--        <li><router-link to="/charts">vue-charts</router-link></li>-->
-<!--        <li><router-link to="/chartKick">vue-chartKick</router-link></li>-->
+      <router-link class="btn" to="/graph">그래프 보기</router-link>
+      <router-link class="btn" to="/graph2">그래프 보기2</router-link>
+      <ul>
+        <li><router-link to="/chartjs">vue-chartjs</router-link></li>
+        <li><router-link to="/charts">vue-charts</router-link></li>
+        <li><router-link to="/chartKick">vue-chartKick</router-link></li>
+      </ul>
     </nav>
   </div>
 </template>
