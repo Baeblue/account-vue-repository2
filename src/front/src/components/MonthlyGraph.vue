@@ -2,6 +2,7 @@
   <div class="graph">
     <div class="header">
       <div class="subject">
+        <br/>
         <h3>월별 지출액 그래프</h3> <!-- total을 월별로 따로 가져와야하나 -->
       </div>
     </div>
@@ -17,7 +18,7 @@
         :labels="labels"
         :names="names"
         :values="values">
-        <note :text="'월별 지출액 추이'"></note>
+<!--        <note :text="'월별 지출액 추이'"></note>-->
         <tooltip :names="names" :position="'right'"></tooltip>
         <legends :names="names"></legends>
         <guideline :tooltip-y="true"></guideline>
@@ -31,10 +32,11 @@
     name: "MonthlyGraph",
     data() {
       return {
+        total: 0,
         labels: [ '2020. 02.', '2020. 03.', '2020. 04.', '2020. 05.' ],    // -> 월
         names: [ "누적 지출액" ],    // -> 누적액
         values: [
-          [ 200000, 300000, 250000, 300000 ],                     // -> 월별 누적액이 하나씩.
+          [ 300000, 400000, 239900, 311500 ],                     // -> 월별 누적액이 하나씩. [ 200000, 300000, 250000, 300000 ],
         ]
       }
     }

@@ -7,36 +7,36 @@
         <div class="totalArea">{{ total }} 원</div>
       </div>
 
-      <div class="search">
-        <h3>검색할 년/월을 입력하세요.</h3>
-        <div class="content">
-          <b-dropdown
-            id="dropdown-3" class="m-2" required
-            :text="selectedYear"
-          >
-            <b-dropdown-item
-              v-for="year in YearList" :key="year.id"
-              @click="selectYear(year)"
-            >
-              {{ year }}
-            </b-dropdown-item>
-          </b-dropdown>
+<!--      <div class="search">-->
+<!--        <h3>검색할 년/월을 입력하세요.</h3>-->
+<!--        <div class="content">-->
+<!--          <b-dropdown-->
+<!--            id="dropdown-3" class="m-2" required-->
+<!--            :text="selectedYear"-->
+<!--          >-->
+<!--            <b-dropdown-item-->
+<!--              v-for="year in YearList" :key="year.id"-->
+<!--              @click="selectYear(year)"-->
+<!--            >-->
+<!--              {{ year }}-->
+<!--            </b-dropdown-item>-->
+<!--          </b-dropdown>-->
 
-          <b-dropdown
-            id="dropdown-4" class="m-2" required
-            :text="selectedMonth"
-          >
-            <b-dropdown-item
-              v-for="month in MonthList" :key="month.id"
-              @click="selectMonth(month)"
-            >
-              {{ month }}
-            </b-dropdown-item>
-          </b-dropdown>
+<!--          <b-dropdown-->
+<!--            id="dropdown-4" class="m-2" required-->
+<!--            :text="selectedMonth"-->
+<!--          >-->
+<!--            <b-dropdown-item-->
+<!--              v-for="month in MonthList" :key="month.id"-->
+<!--              @click="selectMonth(month)"-->
+<!--            >-->
+<!--              {{ month }}-->
+<!--            </b-dropdown-item>-->
+<!--          </b-dropdown>-->
 
-          <button @click="getAccountsByDate()" class="btn btn-success">검색</button>
-        </div>
-      </div>
+<!--          <button @click="getAccountsByDate()" class="btn btn-success">검색</button>-->
+<!--        </div>-->
+<!--      </div>-->
     </div>
 
     <table>
