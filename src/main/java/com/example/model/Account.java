@@ -33,10 +33,10 @@ public class Account {
     }
 
     public String getYearMonth() {
-        String filteredDate = "";   // 2020-05-11 -> 2020-5
-        //filterDate = (this.date.getYear()+1900) + "-" + (this.date.getMonth()+1);
+        String filteredDate = "";
         Calendar cal = Calendar.getInstance();
         cal.setTime(this.date);
+        // 2020-05-11 -> 2020-5
         filteredDate = (cal.get(Calendar.YEAR)) + "-" + (cal.get(Calendar.MONTH) + 1);
 
         return filteredDate;
@@ -48,8 +48,10 @@ public class Account {
         cal.setTime(this.date);
 
         if ((cal.get(Calendar.MONTH) + 1) < 10) {
+            // 2020-05-11 -> 2020-05
             filteredDate = (cal.get(Calendar.YEAR)) + "-0" + (cal.get(Calendar.MONTH) + 1);
         } else {
+            // 2020-12-11 -> 2020-12
             filteredDate = (cal.get(Calendar.YEAR)) + "-" + (cal.get(Calendar.MONTH) + 1);
         }
 
