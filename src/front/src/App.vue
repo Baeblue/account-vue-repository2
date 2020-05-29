@@ -13,7 +13,6 @@
   import AddAccount from './components/AddAccount';
   import UpdateAccount from "./components/UpdateAccount";
   import HeaderComponent from "./components/HeaderComponent";
-  import SearchList from "./components/SearchList";
   import MonthlyGraph from "./components/MonthlyGraph";
   import EventBus from "@js/EventBus";
   import {EVENT} from "@js/Constants";
@@ -33,7 +32,6 @@
       {path: '/list', component: List},
       {path: '/addAccount', component: AddAccount},
       {path: '/updateAccount/:id', component: UpdateAccount, props: true},
-      {path: '/searchList', component: SearchList},
       {path: '/graph', component: MonthlyGraph},
     ]
   });
@@ -58,7 +56,6 @@
       AddAccount,
       UpdateAccount,
       HeaderComponent,
-      SearchList,
       MonthlyGraph,
       GraphLine3D,
       NoteWidget,

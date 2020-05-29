@@ -8,7 +8,6 @@
       <div @click="refreshRouterView()">
         <router-link class="btn" to="/list">이번 달 목록 보기</router-link>
       </div>
-      <router-link class="btn" to="/searchList">월별 지출액 보기</router-link>
       <router-link class="btn" to="/graph">그래프 보기</router-link>
     </nav>
   </div>
@@ -61,13 +60,6 @@
         box-shadow: .7px .7px 1px 1px gray; // x-position y-position blur spread color
         font-size: 22px;
       }
-
-      /*.btn-primary {*/
-      /*  margin: 0 20px;*/
-      /*  color: rgba(0, 0, 0, 0.84);*/
-      /*  background-color: #ff8fa0;*/
-      /*  font-size: 22px;*/
-      /*}*/
 
       .btn:hover {
         background-color: gray;
