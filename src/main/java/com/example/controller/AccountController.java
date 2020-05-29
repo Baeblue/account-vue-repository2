@@ -19,26 +19,6 @@ public class AccountController {
     @Autowired
     AccountRepository repository;
 
-    @GetMapping("/list")
-    public List<Account> getList() {
-        System.out.println("Get a List...");
-
-        List<Account> list = repository.findAll();
-
-        // 현재 년/월에 충족되는 account 만 filter 해서 Front 에 전달
-        TimeZone tz = TimeZone.getTimeZone("Asia/Seoul");
-        Calendar cal = Calendar.getInstance(tz);
-        System.out.println(cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH)+1) + "-" + cal.get(Calendar.DATE));
-
-        List<Account> filteredList = list.stream()
-                .filter(a -> a.getYearMonth().equals(cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH) + 1)))
-                .collect(Collectors.toList());
-
-        filteredList.sort((a1, a2) -> a2.getId().compareTo(a1.getId()));
-
-        return filteredList;
-    }
-
     @PostMapping("/account")
     public Account addLine(@RequestBody Account account) {
         Account _account = repository.save(
@@ -86,6 +66,8 @@ public class AccountController {
 
     @PostMapping("/monthly")
     public List<Account> findByDate(@RequestBody SelectedDate selectedDate) {
+        System.out.println("Get a List...");
+
         List<Account> list = repository.findAll();
 
         String selectedYear = selectedDate.getYear();

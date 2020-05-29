@@ -2,41 +2,40 @@
   <div class="list">
     <div class="header">
       <div class="subject">
-        <h3 v-if="this.selectedDate.year !== '' && this.selectedDate.month !== ''">{{ this.selectedDate.year }}년 {{ this.selectedDate.month }}월 누적 지출액</h3>
-        <h3 v-else>이번 달 누적 지출액</h3>
+        <h3>{{ selectedDate.year }}년 {{ selectedDate.month }}월 누적 지출액</h3>
         <div class="totalArea">{{ total }} 원</div>
       </div>
 
-<!--      <div class="search">-->
-<!--        <h3>검색할 년/월을 입력하세요.</h3>-->
-<!--        <div class="content">-->
-<!--          <b-dropdown-->
-<!--            id="dropdown-3" class="m-2" required-->
-<!--            :text="selectedYear"-->
-<!--          >-->
-<!--            <b-dropdown-item-->
-<!--              v-for="year in YearList" :key="year.id"-->
-<!--              @click="selectYear(year)"-->
-<!--            >-->
-<!--              {{ year }}-->
-<!--            </b-dropdown-item>-->
-<!--          </b-dropdown>-->
+      <div class="search">
+        <h3>검색할 년/월을 입력하세요.</h3>
+        <div class="content">
+          <b-dropdown
+            id="dropdown-3" class="m-2" required
+            :text="selectedYear"
+          >
+            <b-dropdown-item
+              v-for="year in YearList" :key="year.id"
+              @click="selectYear(year)"
+            >
+              {{ year }}
+            </b-dropdown-item>
+          </b-dropdown>
 
-<!--          <b-dropdown-->
-<!--            id="dropdown-4" class="m-2" required-->
-<!--            :text="selectedMonth"-->
-<!--          >-->
-<!--            <b-dropdown-item-->
-<!--              v-for="month in MonthList" :key="month.id"-->
-<!--              @click="selectMonth(month)"-->
-<!--            >-->
-<!--              {{ month }}-->
-<!--            </b-dropdown-item>-->
-<!--          </b-dropdown>-->
+          <b-dropdown
+            id="dropdown-4" class="m-2" required
+            :text="selectedMonth"
+          >
+            <b-dropdown-item
+              v-for="month in MonthList" :key="month.id"
+              @click="selectMonth(month)"
+            >
+              {{ month }}
+            </b-dropdown-item>
+          </b-dropdown>
 
-<!--          <button @click="getAccountsByDate()" class="btn btn-success">검색</button>-->
-<!--        </div>-->
-<!--      </div>-->
+          <button @click="getAccountsByDate()" class="btn btn-success">검색</button>
+        </div>
+      </div>
     </div>
 
     <table>
@@ -92,32 +91,25 @@
       }
     },
     mounted() {
-      this.getAccounts();
+      const _date = new Date();
+      const _curYear = _date.getFullYear();
+      const _curMonth = _date.getMonth() + 1;
+      this.selectedDate = {
+        year: `${_curYear}`,
+        month: `${_curMonth < 10 ? '0':''}${_curMonth}`,
+      };
+
+      this.getAccountsByDate();
     },
     methods: {
-      select() {
-        // this.selectedDate.year !== "";
-        // this.selectedDate.month !== "";
-      },
       selectYear(selectedItem) {
         this.selectedYear = selectedItem;
         this.selectedDate.year = this.selectedYear;
       },
       selectMonth(selectedItem) {
+        this.total = 0;   // 검색 전 월 선택했을 때 0
         this.selectedMonth = selectedItem;
         this.selectedDate.month = this.selectedMonth;
-      },
-      getAccounts() {
-        ApiSvc.get("/list")
-          .then(res => {
-            this.accounts = res.data;
-            // initialize total value.
-            this.total = res.data
-              .map(obj => obj.price)
-              .reduce((price1, price2) => price1 + price2, 0)
-              .toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-          })
-          .catch(e => console.log(e));
       },
       getAccountsByDate() {
         const requestData = {
@@ -165,7 +157,8 @@
           .then(res => {
             console.log(id);
             console.log(res.data);
-            this.getAccounts();
+            // this.getAccounts();
+            this.getAccountsByDate();
           })
           .catch(e => {
             console.log(e);
@@ -203,17 +196,11 @@
 
         .content {
           display: flex;
-          justify-content: space-between;
+          justify-content: flex-end;
 
           .m-2 {
             height: 40px;
           }
-
-          /*.month {*/
-          /*  width: 300px;      //width: 73%;*/
-          /*  padding: 6px 0;*/
-          /*  font-size: 20px;*/
-          /*}*/
 
           .btn {
             width: 24%;
