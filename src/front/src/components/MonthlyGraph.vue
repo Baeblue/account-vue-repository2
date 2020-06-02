@@ -18,7 +18,7 @@
         :labels="labels"
         :names="names"
         :values="values">
-<!--        <note :text="'월별 지출액 추이'"></note>-->
+        <note :text="'단위: 원'" :align="'left'"></note>
         <tooltip :names="names" :position="'right'"></tooltip>
         <legends :names="names"></legends>
         <guideline :tooltip-y="true"></guideline>
@@ -35,21 +35,16 @@
     data() {
       return {
         accounts: [],
-        total: 0,
-        graphDate: {
-          graphYear: "",
-          graphMonth: "",
+        selectedDate: {
+          year: "",
+          month: "",
         },
         labels: [],
-        names: [ "누적 지출액" ],   // 왜 안 나오지
-        totalList: [],
-        values: [
-          []
-        ],
+        names: [ "누적 지출액" ],
+        values: [],
       }
     },
     created() {
-
       const _date = new Date();
 
       const _curYear = _date.getFullYear();
@@ -87,69 +82,42 @@
       this.labels.push(_curYear4 + ". " + `${_curMonth4-1 < 10 ? '0':''}${_curMonth4-1}` + ".");
       this.labels.push(_curYear + ". " + `${_curMonth < 10 ? '0':''}${_curMonth}` + ".");
 
-      // String 으로 말고 숫자로 하면 경우의 수를 따질 필요가 없음.
-      // Calendar CalendarPlugin
+      // String 으로 말고 숫자로 하면 경우의 수를 따질 필요가 없음. Calendar CalendarPlugin
       //------------------------------------------------------------------------------------------------
 
-      let _total1 = this.dateMatch(_curYear1, _curMonth1-4);
-      let _total2 = this.dateMatch(_curYear2, _curMonth2-3);
-      let _total3 = this.dateMatch(_curYear3, _curMonth3-2);
-      let _total4 = this.dateMatch(_curYear4, _curMonth4-1);
-      let _total = this.dateMatch(_curYear, _curMonth);
-
-      console.log("_total1값을 알아보자 " + _total1);
-      this.values.push(_total1);
-      console.log("_total2값을 알아보자 " + _total1);
-      this.values.push(_total2);
-      console.log("_total3값을 알아보자 " + _total1);
-      this.values.push(_total3);
-      console.log("_total4값을 알아보자 " + _total1);
-      this.values.push(_total4);
-      console.log("_total값을 알아보자 " + _total1);
-      this.values.push(_total);
-
+      this.getAccountsByDate(_curYear1, _curMonth1-4);
+      this.getAccountsByDate(_curYear2, _curMonth2-3);
+      this.getAccountsByDate(_curYear3, _curMonth3-2);
+      this.getAccountsByDate(_curYear4, _curMonth4-1);
+      this.getAccountsByDate(_curYear, _curMonth);
     },
     methods: {
-      dateMatch(_curYear, _curMonth) {
-        this.graphDate = {
-          graphYear: `${_curYear}`,
-          graphMonth: `${_curMonth < 10 ? '0':''}${_curMonth}`,
-        };
-        this.getAccountsByDate();
-      },
-      getAccountsByDate() {
-        console.log(this.graphDate.graphYear + ". " + this.graphDate.graphMonth);
+      getAccountsByDate(_curYear, _curMonth) {
         const requestData = {
-          graphYear: this.graphDate.graphYear,
-          graphMonth: this.graphDate.graphMonth,
+          year: `${_curYear}`,
+          month: `${_curMonth < 10 ? '0':''}${_curMonth}`,
         };
 
-        ApiSvc.post("/getTotal", requestData)
+        ApiSvc.post("/monthly", requestData)
           .then(res => {
             this.accounts = res.data;
-            this.getTotal(res.data);
+            this.values.push(this.getTotal(res.data));
           })
           .catch(e => console.log(e));
-
-        console.log("getAccountsByDate() 실행 끝");
-
       },
       getTotal(data) {
-        console.log("getTotal(data) 실행");
         let totalG = data
           .map(obj => obj.price)
-          .reduce((price1, price2) => price1 + price2, 0)
-          .toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        console.log("totalG: " + totalG);
+          .reduce((price1, price2) => price1 + price2, 0);
         return totalG;
       },
     },
   };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
   .graph {
-    text-align: center;
+      text-align: center;
   }
 </style>
