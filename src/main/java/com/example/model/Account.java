@@ -47,4 +47,14 @@ public class Account {
 
         return filteredDate;
     }
+
+    public String getYearMonth() {
+        String filteredDate = "";
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(this.date);
+        // 2020-05-11 -> 2020-5
+        filteredDate = (cal.get(Calendar.YEAR)) + "-" + (cal.get(Calendar.MONTH) + 1);
+
+        return filteredDate;
+    }
 }

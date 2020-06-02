@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.example.model.Account;
+import com.example.model.GraphDate;
 import com.example.model.SelectedDate;
 import com.example.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,4 +83,42 @@ public class AccountController {
 
         return selectedList;
     }
+
+    @PostMapping("/getTotal")
+    public List<Account> findForGraph(@RequestBody GraphDate graphDate) {
+
+        List<Account> list = repository.findAll();
+
+        String graphForYear = graphDate.getGraphYear();
+        String graphForMonth = graphDate.getGraphMonth();
+        System.out.println(graphForYear + ". " + graphForMonth + ".");
+
+        List<Account> graphForList = list.stream()
+                .filter(a -> a.searchedYearMonth().equals(graphForYear + "-" + graphForMonth))
+                .collect(Collectors.toList());
+
+        graphForList.sort((a1, a2) -> a2.getId().compareTo(a1.getId()));
+
+        return graphForList;
+    }
+
+    @GetMapping("/list")
+    public List<Account> getList() {
+
+        List<Account> list = repository.findAll();
+
+        // 현재 년/월에 충족되는 account 만 filter 해서 Front 에 전달
+        TimeZone tz = TimeZone.getTimeZone("Asia/Seoul");
+        Calendar cal = Calendar.getInstance(tz);
+        System.out.println(cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH)+1) + "-" + cal.get(Calendar.DATE));
+
+        List<Account> filteredList = list.stream()
+                .filter(a -> a.getYearMonth().equals(cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH) + 1)))
+                .collect(Collectors.toList());
+
+        filteredList.sort((a1, a2) -> a2.getId().compareTo(a1.getId()));
+
+        return filteredList;
+    }
+
 }
