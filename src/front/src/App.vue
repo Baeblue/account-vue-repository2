@@ -20,10 +20,6 @@
   import NoteWidget from 'vue-graph/src/widgets/note.js';
   import LegendWidget from 'vue-graph/src/widgets/legends.js';
 
-  // Vue.component(GraphLine3D.name, GraphLine3D);
-  // Vue.component(NoteWidget.name, NoteWidget);
-  // Vue.component(LegendWidget.name, LegendWidget);
-
   import VueRouter from 'vue-router';
 
   const router = new VueRouter({
@@ -44,7 +40,7 @@
       }
     },
     created() {
-      console.log(`- - - - - -[Event 등록] ${EVENT.REFRESH_ROUTER_VIEW}`);
+      console.log(`[Event 등록] ${EVENT.REFRESH_ROUTER_VIEW}`);
       EventBus.$on(EVENT.REFRESH_ROUTER_VIEW, () => {
         console.log(`[On] ${EVENT.REFRESH_ROUTER_VIEW}`);
         this.key++;

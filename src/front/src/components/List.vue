@@ -107,7 +107,7 @@
         this.selectedDate.year = this.selectedYear;
       },
       selectMonth(selectedItem) {
-        this.total = 0;   // 검색 전 월 선택했을 때 0
+        this.total = 0;   // 검색 전 월까지 선택했을 때 0
         this.selectedMonth = selectedItem;
         this.selectedDate.month = this.selectedMonth;
       },
@@ -148,7 +148,8 @@
         return result;
       },
       formatPrice(price) {
-        let formatPrice = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        let formatPrice = price.toString()
+                              .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
         return formatPrice;
       },
@@ -157,12 +158,10 @@
           .then(res => {
             console.log(id);
             console.log(res.data);
-            // this.getAccounts();
+
             this.getAccountsByDate();
           })
-          .catch(e => {
-            console.log(e);
-          });
+          .catch(e => console.log(e));
       }
     },
   };
@@ -218,7 +217,6 @@
       width: 1000px;
 
       thead {
-        //border: 1px solid darkgray;
         border-radius: 30px;
         background-color: darkgray;
         color: white;
@@ -245,7 +243,7 @@
       }
 
       tr:hover {
-        background-color: rgb(255, 239, 241);    // rgb(240, 240, 240)
+        background-color: rgb(255, 239, 241);
       }
     }
   }

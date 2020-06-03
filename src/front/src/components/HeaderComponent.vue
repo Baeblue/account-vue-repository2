@@ -33,15 +33,12 @@
   .headerComponent {
     min-width: 1000px;
     height: 360px;
-    /*border-bottom: 1px solid gray;*/
-    /*background-image: url("../../../front/src/assets/logo.png");*/
     background-image: url("../../../front/src/assets/pig2.jpg");
-    /*background-repeat: no-repeat;*/
 
     .home {
       display: flex;
-      justify-content: center; // align width
-      align-items: center; // align height
+      justify-content: center;   // align width
+      align-items: center;   // align height
       height: 250px;
       color: rgb(62, 62, 62);
       font-size: 50px;
@@ -57,7 +54,7 @@
         margin: 0 20px;
         color: white;
         background-color: #ff797d;
-        box-shadow: .7px .7px 1px 1px gray; // x-position y-position blur spread color
+        box-shadow: .7px .7px 1px 1px gray;   // x-position y-position blur spread color
         font-size: 22px;
       }
 

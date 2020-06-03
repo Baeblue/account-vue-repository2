@@ -43,17 +43,13 @@
         </div>
 
         <button @click="updateRow(account.id)" class="btn btn-success">등록</button>
-<!--        <router-link to="/list">-->
-        <button @click="goBack()" class="btn btn-success">돌아가기</button>    <!-- 그냥 이전 화면으로 -->
-<!--        </router-link>-->
+        <button @click="goBack()" class="btn btn-success">돌아가기</button>   <!-- 이전 화면으로 -->
       </div>
 
       <div v-else>
         <h4>수정되었습니다.</h4>
         <br/>
-<!--        <router-link to="/list">-->
-          <button @click="goBack()" class="btn btn-success">확인</button>   <!-- 다른 달 수정 시 그 달의 리스트로 -->
-<!--        </router-link>-->
+        <button @click="goBack()" class="btn btn-success">확인</button>   <!-- 수정한 달의 리스트로 -->
       </div>
     </div>
   </div>
@@ -61,7 +57,6 @@
 
 <script>
   import ApiSvc from "@js/ApiSvc.js";
-  import EventBus from "@js/EventBus";
 
   export default {
     name: "UpdateAccount",
@@ -91,12 +86,7 @@
     },
     methods: {
       goBack() {
-        //window.history.length > 1 ?
           this.$router.go(-1);
-          //: this.$router.push('/')
-        // EventBus.$on("use-eventBus", accounts => {
-        //   this.accounts = accounts;
-        // });
       },
       getAccount(id) {
         ApiSvc.get(`/account/${id}`)
@@ -128,9 +118,7 @@
             this.account = res.data;
             console.log("Success! You edited the account.");
           })
-          .catch(e => {
-            console.log(e)
-          });
+          .catch(e => console.log(e));
         this.submitted = true;
       },
     }
@@ -153,7 +141,7 @@
         .inputArea {
           width: 500px;
           display: flex;   // 옆으로 나란히
-          align-items: center; // 위아래 중앙
+          align-items: center;   // 위아래 중앙
           margin: 30px 0;
         }
 

@@ -59,6 +59,7 @@
       let _curMonth3 = _curMonth;
       let _curMonth4 = _curMonth;
 
+      // String 아닌 숫자로 하면 경우의 수를 따질 필요가 없음. Calendar CalendarPlugin
       if(_curMonth <= 4) {
         _curYear1 = _curYear -1;
         _curMonth1 = _curMonth + 12;
@@ -82,8 +83,7 @@
       this.labels.push(_curYear4 + ". " + `${_curMonth4-1 < 10 ? '0':''}${_curMonth4-1}` + ".");
       this.labels.push(_curYear + ". " + `${_curMonth < 10 ? '0':''}${_curMonth}` + ".");
 
-      // String 으로 말고 숫자로 하면 경우의 수를 따질 필요가 없음. Calendar CalendarPlugin
-      //------------------------------------------------------------------------------------------------
+      //--------------------------------------------------------------------------------------------
 
       this.getAccountsByDate(_curYear1, _curMonth1-4);
       this.getAccountsByDate(_curYear2, _curMonth2-3);

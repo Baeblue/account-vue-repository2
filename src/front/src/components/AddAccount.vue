@@ -100,9 +100,7 @@
           .then(res => {
             this.account.id = res.data.id;
           })
-          .catch(e => {
-            console.log(e);
-          });
+          .catch(e => console.log(e));
 
         this.submitted = true;
       },
