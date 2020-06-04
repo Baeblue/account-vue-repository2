@@ -9,11 +9,11 @@
 
     <div class="line-chart">
       <graph-line
-        :width="1050"
-        :height="700"
+        :width="1125"
+        :height="750"
         :shape="'normal'"
         :axis-min="0"
-        :axis-max="500000"
+        :axis-max="400000"
         :axis-full-mode="true"
         :labels="labels"
         :names="names"
