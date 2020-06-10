@@ -94,6 +94,8 @@
       const _date = new Date();
       const _curYear = _date.getFullYear();
       const _curMonth = _date.getMonth() + 1;
+
+      // 처음에 현재 년/월에 맞는 데이터가 들어오도록
       this.selectedDate = {
         year: `${_curYear}`,
         month: `${_curMonth < 10 ? '0':''}${_curMonth}`,
@@ -107,7 +109,7 @@
         this.selectedDate.year = this.selectedYear;
       },
       selectMonth(selectedItem) {
-        this.total = 0;   // 검색 전 월까지 선택했을 때 0
+        this.total = 0;   // 검색 전 월까지 선택했을 때 누적 지출액 0으로
         this.selectedMonth = selectedItem;
         this.selectedDate.month = this.selectedMonth;
       },
@@ -117,6 +119,7 @@
           month: this.selectedDate.month
         };
 
+        // Ajax를 이용해 필요한 데이터만을 요청
         ApiSvc.post("/monthly", requestData)
           .then(res => {
             this.accounts = res.data;

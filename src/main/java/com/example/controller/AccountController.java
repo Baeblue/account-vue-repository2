@@ -74,10 +74,12 @@ public class AccountController {
         String selectedMonth = selectedDate.getMonth();
         System.out.println(selectedYear + "-" + selectedMonth);
 
+        // 원하는 달의 리스트만 filter해서 Front에 전달
         List<Account> selectedList = list.stream()
         .filter(a -> a.searchedYearMonth().equals(selectedYear + "-" + selectedMonth))
         .collect(Collectors.toList());
 
+        // 나중에 입력한 값이 맨 위에 오도록 sort를 이용해 재정렬
         selectedList.sort((a1, a2) -> a2.getId().compareTo(a1.getId()));
 
         return selectedList;
