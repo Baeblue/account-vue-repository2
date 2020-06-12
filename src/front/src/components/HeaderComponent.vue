@@ -4,11 +4,15 @@
       <div>안녕 가계부!</div>
     </div>
     <nav>
-      <router-link class="btn" to="/addAccount">지출 입력하기</router-link>
+      <div @click="refreshRouterView()">
+        <router-link class="btn" to="/addAccount">지출 입력하기</router-link>
+      </div>
       <div @click="refreshRouterView()">
         <router-link class="btn" to="/list">이번 달 목록 보기</router-link>
       </div>
-      <router-link class="btn" to="/graph">그래프 보기</router-link>
+      <div @click="refreshRouterView()">
+        <router-link class="btn" to="/graph">그래프 보기</router-link>
+      </div>
     </nav>
   </div>
 </template>
