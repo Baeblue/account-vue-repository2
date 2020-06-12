@@ -40,70 +40,78 @@
           month: "",
         },
         labels: [],
-        names: [ "누적 지출액" ],
+        names: ["누적 지출액"],
         values: [],
       }
     },
     created() {
       const _date = new Date();
 
-      const _curYear = _date.getFullYear();
-      let _curYear1 = _curYear;
-      let _curYear2 = _curYear;
-      let _curYear3 = _curYear;
-      let _curYear4 = _curYear;
+      const _curYear1 = _date.getFullYear();
+      let _curYear2 = _curYear1;
+      let _curYear3 = _curYear1;
+      let _curYear4 = _curYear1;
+      let _curYear5 = _curYear1;
 
-      const _curMonth = _date.getMonth() + 1;
-      let _curMonth1 = _curMonth;
-      let _curMonth2 = _curMonth;
-      let _curMonth3 = _curMonth;
-      let _curMonth4 = _curMonth;
+      const _curMonth1 = _date.getMonth() + 1;
+      let _curMonth2 = _curMonth1;
+      let _curMonth3 = _curMonth1;
+      let _curMonth4 = _curMonth1;
+      let _curMonth5 = _curMonth1;
 
       // String 아닌 숫자로 하면 경우의 수를 따질 필요가 없음. Calendar CalendarPlugin
-      if(_curMonth <= 4) {
-        _curYear1 = _curYear -1;
-        _curMonth1 = _curMonth + 12;
+      if (_curMonth1 <= 4) {
+        _curYear5 = _curYear1 - 1;
+        _curMonth5 = _curMonth1 + 12;
       }
-      if(_curMonth <= 3) {
-        _curYear2 = _curYear -1;
-        _curMonth2 = _curMonth + 12;
+      if (_curMonth1 <= 3) {
+        _curYear4 = _curYear1 - 1;
+        _curMonth4 = _curMonth1 + 12;
       }
-      if(_curMonth <= 2) {
-        _curYear3 = _curYear -1;
-        _curMonth3 = _curMonth + 12;
+      if (_curMonth1 <= 2) {
+        _curYear3 = _curYear1 - 1;
+        _curMonth3 = _curMonth1 + 12;
       }
-      if(_curMonth <= 1) {
-        _curYear4 = _curYear -1;
-        _curMonth4 = _curMonth + 12;
+      if (_curMonth1 <= 1) {
+        _curYear2 = _curYear1 - 1;
+        _curMonth2 = _curMonth1 + 12;
       }
 
-      this.labels.push(_curYear1 + ". " + `${_curMonth1-4 < 10 ? '0':''}${_curMonth1-4}` + ".");
-      this.labels.push(_curYear2 + ". " + `${_curMonth2-3 < 10 ? '0':''}${_curMonth2-3}` + ".");
-      this.labels.push(_curYear3 + ". " + `${_curMonth3-2 < 10 ? '0':''}${_curMonth3-2}` + ".");
-      this.labels.push(_curYear4 + ". " + `${_curMonth4-1 < 10 ? '0':''}${_curMonth4-1}` + ".");
-      this.labels.push(_curYear + ". " + `${_curMonth < 10 ? '0':''}${_curMonth}` + ".");
+      this.labels.push(_curYear5 + ". " + `${_curMonth5 - 4 < 10 ? '0' : ''}${_curMonth5 - 4}` + ".");
+      this.labels.push(_curYear4 + ". " + `${_curMonth4 - 3 < 10 ? '0' : ''}${_curMonth4 - 3}` + ".");
+      this.labels.push(_curYear3 + ". " + `${_curMonth3 - 2 < 10 ? '0' : ''}${_curMonth3 - 2}` + ".");
+      this.labels.push(_curYear2 + ". " + `${_curMonth2 - 1 < 10 ? '0' : ''}${_curMonth2 - 1}` + ".");
+      this.labels.push(_curYear1 + ". " + `${_curMonth1 < 10 ? '0' : ''}${_curMonth1}` + ".");
 
       //--------------------------------------------------------------------------------------------
-
-      this.getAccountsByDate(_curYear1, _curMonth1-4);
-      this.getAccountsByDate(_curYear2, _curMonth2-3);
-      this.getAccountsByDate(_curYear3, _curMonth3-2);
-      this.getAccountsByDate(_curYear4, _curMonth4-1);
-      this.getAccountsByDate(_curYear, _curMonth);
+      this.getAccountsByDate(_curYear5, _curMonth5 - 4)
+        .then(() => this.getAccountsByDate(_curYear4, _curMonth4 - 3))
+        .then(() => this.getAccountsByDate(_curYear3, _curMonth3 - 2))
+        .then(() => this.getAccountsByDate(_curYear2, _curMonth2 - 1))
+        .then(() => this.getAccountsByDate(_curYear1, _curMonth1));
     },
     methods: {
       getAccountsByDate(_curYear, _curMonth) {
         const requestData = {
           year: `${_curYear}`,
-          month: `${_curMonth < 10 ? '0':''}${_curMonth}`,
+          month: `${_curMonth < 10 ? '0' : ''}${_curMonth}`,
         };
+        return new Promise((resolve, reject) => {
+          console.log(`[start]    ${_curYear}.${_curMonth}`);
 
-        ApiSvc.post("/monthly", requestData)
-          .then(res => {
-            this.accounts = res.data;
-            this.values.push(this.getTotal(res.data));
-          })
-          .catch(e => console.log(e));
+          ApiSvc.post("/monthly", requestData)
+            .then(res => {
+              setTimeout(() => {
+                this.accounts = res.data;
+                this.values.push(this.getTotal(res.data));
+
+                console.log(`[end]    ${_curYear}.${_curMonth}`);
+
+                resolve();
+              }, 300);
+            })
+            .catch(e => console.log(e));
+        });
       },
       getTotal(data) {
         let totalG = data
@@ -118,6 +126,6 @@
 <style lang="scss" scoped>
 
   .graph {
-      text-align: center;
+    text-align: center;
   }
 </style>
