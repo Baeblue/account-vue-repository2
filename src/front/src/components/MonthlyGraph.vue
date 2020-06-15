@@ -84,6 +84,7 @@
       this.labels.push(_curYear1 + ". " + `${_curMonth1 < 10 ? '0' : ''}${_curMonth1}` + ".");
 
       //--------------------------------------------------------------------------------------------
+
       this.getAccountsByDate(_curYear5, _curMonth5 - 4)
         .then(() => this.getAccountsByDate(_curYear4, _curMonth4 - 3))
         .then(() => this.getAccountsByDate(_curYear3, _curMonth3 - 2))
