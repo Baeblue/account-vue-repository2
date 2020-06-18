@@ -140,7 +140,9 @@
         let result = '';
 
         if (month < 10) {
-          result += '0' + month;
+          result = '0' + month;
+        } else {
+          result = month;
         }
         if (day < 10) {
           result += '/0' + day;
